@@ -71,7 +71,7 @@ head(df)
 
 }
 \seealso{
-idtax2df, LCA2df, ensembleTax, taxmapper
+idtax2df, ensembleTax, taxmapper
 }
 \author{
 Dylan Catlett

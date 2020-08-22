@@ -10,7 +10,7 @@
 #' contain taxonomic assignments. tt is sorted by columns not included in
 #' ranknames.
 #'
-#' @seealso LCA2df, bayestax2df, idtax2df
+#' @seealso bayestax2df, idtax2df
 #'
 #' @examples
 #' data("bayes.sample")

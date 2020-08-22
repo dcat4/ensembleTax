@@ -49,12 +49,14 @@
 #' for retaining Eukaryota when mapping onto a prokaryote-only taxonomic
 #' nomenclature).
 #'
-#' When ignore.format = TRUE, taxmapper removes hyphens and underscores
-#' from all elements of both tt and tax2map2. Each unique element separated
-#' by a hyphen or underscore, in addition to a concatenated string with each
-#' separate sub-string combined into one, is searched for exact matches. It also
-#' removes case sensitivity of exact name-matching, and treats the following
-#' taxonomic suffixes as equivalent: phyta, phytes, phyte, and phyceae.
+#' When ignore.format = TRUE, taxmapper removes hyphens, underscores, and spaces
+#' from all elements of tt. Each unique element separated by a hyphen,
+#' underscore, or space, in addition to a concatenated string with each
+#' separate sub-string combined into one, are compiled. It then creates
+#' all-lower and all-upper case versions of these elements, and adds them to the
+#' collection of unique elements. Each of these elements is then searched for
+#' exact name matches in tax2map2. The following taxonomic suffixes are
+#' equivalent when ignore.format = TRUE: phyta, phytes, phyte, and phyceae.
 #' ignore.format is never applied to synonym.file.
 #'
 #' For high-throughput implementation of taxmapper, it's recommended to set
@@ -131,14 +133,21 @@ taxmapper <- function(tt,
     no.hyphen <- base::strsplit(taxonomy, "-")
     # split terms by underscores
     no.underscore <- base::strsplit(taxonomy, "_")
+    # split by space:
+    no.spc <- base::strsplit(taxonomy, " ")
     # split terms by first instance of underscores and combine previous splits
-    taxs <- c(no.hyphen[[1]], no.underscore[[1]], base::gsub("(_.*)", "", taxonomy), taxonomy)
+    taxs <- c(no.hyphen[[1]], no.underscore[[1]], no.spc,
+              paste(no.hyphen[[1]], sep = '', collapse = ''),
+              paste(no.underscore[[1]], sep = '', collapse = ''),
+              paste(no.spc[[1]], sep = '', collapse = ''),
+              taxonomy)
     # remove duplicates
     taxs <- base::unique(taxs)
     # convert all to lowercase
     no.upper <- base::tolower(taxs)
+    no.lower <- base::toupper(taxs)
     # create alternative suffixes for certain taxonomies
-    final.taxs <- createAlts(unique(c(taxs, no.upper)))
+    final.taxs <- createAlts(unique(c(taxs, no.upper, no.lower)))
     return(final.taxs)
   }
 

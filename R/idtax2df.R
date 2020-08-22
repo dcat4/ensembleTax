@@ -27,7 +27,7 @@
 #' confidence values. If FALSE, your formatted taxonomy table is returned as a
 #' dataframe.
 #'
-#' @seealso bayestax2df, LCA2df, ensembleTax, taxmapper
+#' @seealso bayestax2df, ensembleTax, taxmapper
 #'
 #' @examples
 #' data("idtax.pr2.sample")

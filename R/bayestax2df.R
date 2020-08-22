@@ -29,7 +29,7 @@
 #' confidence values. If FALSE, your formatted taxonomy table is returned as a
 #' dataframe.
 #'
-#' @seealso idtax2df, LCA2df, ensembleTax, taxmapper
+#' @seealso idtax2df, ensembleTax, taxmapper
 #'
 #' @examples
 #' data("bayes.sample")

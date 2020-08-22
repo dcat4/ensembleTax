@@ -68,7 +68,7 @@ head(df)
 
 }
 \seealso{
-bayestax2df, LCA2df, ensembleTax, taxmapper
+bayestax2df, ensembleTax, taxmapper
 }
 \author{
 Dylan Catlett

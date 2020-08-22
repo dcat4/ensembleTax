@@ -53,8 +53,7 @@
 #' taxonomic assignment. Proportions are calculated for a given ASV at a given
 #' rank.
 #'
-#' @seealso idtax2df, bayestax2df, LCA2df, taxmapper, pr2_tax_miner,
-#' silva_tax_miner
+#' @seealso idtax2df, bayestax2df, taxmapper
 #'
 #' @examples
 #' fake1.pr2 <- data.frame(ASV = c("AAAA", "ATCG", "GCGC", "TATA", "TCGA"),

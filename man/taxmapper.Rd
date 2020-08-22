@@ -73,12 +73,14 @@ used for high-level taxonomic groups that are not found in a database (e.g.
 for retaining Eukaryota when mapping onto a prokaryote-only taxonomic
 nomenclature).
 
-When ignore.format = TRUE, taxmapper removes hyphens and underscores
-from all elements of both tt and tax2map2. Each unique element separated
-by a hyphen or underscore, in addition to a concatenated string with each
-separate sub-string combined into one, is searched for exact matches. It also
-removes case sensitivity of exact name-matching, and treats the following
-taxonomic suffixes as equivalent: phyta, phytes, phyte, and phyceae.
+When ignore.format = TRUE, taxmapper removes hyphens, underscores, and spaces
+from all elements of tt. Each unique element separated by a hyphen,
+underscore, or space, in addition to a concatenated string with each
+separate sub-string combined into one, are compiled. It then creates
+all-lower and all-upper case versions of these elements, and adds them to the
+collection of unique elements. Each of these elements is then searched for
+exact name matches in tax2map2. The following taxonomic suffixes are
+equivalent when ignore.format = TRUE: phyta, phytes, phyte, and phyceae.
 ignore.format is never applied to synonym.file.
 
 For high-throughput implementation of taxmapper, it's recommended to set
@@ -106,8 +108,7 @@ mapped.silva <- taxmapper(fake.silva,
 
 }
 \seealso{
-idtax2df, bayestax2df, LCA2df, ensembleTax, pr2_tax_miner,
-silva_tax_miner
+idtax2df, bayestax2df, ensembleTax
 }
 \author{
 Dylan Catlett

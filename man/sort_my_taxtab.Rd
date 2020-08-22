@@ -30,7 +30,7 @@ ranknames = c("kingdom", "supergroup", "division", "class", "order",
 
 }
 \seealso{
-LCA2df, bayestax2df, idtax2df
+bayestax2df, idtax2df
 }
 \author{
 Dylan Catlett

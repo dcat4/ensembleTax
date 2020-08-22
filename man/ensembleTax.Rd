@@ -130,8 +130,7 @@ head(eTax)
 
 }
 \seealso{
-idtax2df, bayestax2df, LCA2df, taxmapper, pr2_tax_miner,
-silva_tax_miner
+idtax2df, bayestax2df, taxmapper
 }
 \author{
 Dylan Catlett
