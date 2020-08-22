@@ -1,6 +1,6 @@
 Package: ensembleTax
-Title: Ensemble taxonomic assignments of amplicon sequencing data
-Version: 0.0.0.9000
+Title: Ensemble Taxonomic Assignments of Amplicon Sequencing Data
+Version: 0.0.1
 Author: Dylan Catlett [aut, cre], Kevin Son [ctb], Connie Liang [ctb] 
 Maintainer: Dylan Catlett <dcat4444@gmail.com> 
 Description: Creates ensemble taxonomic assignments of amplicon sequencing data 
@@ -17,13 +17,11 @@ Imports:
     dplyr,
     Biostrings,
     DECIPHER,
-    pr2database,
     stringr,
     usethis
 Depends: 
     R (>= 2.10)
 Suggests: 
     knitr, 
-    rmarkdown,
-    dada2
+    rmarkdown
 VignetteBuilder: knitr
