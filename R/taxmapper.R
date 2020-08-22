@@ -60,8 +60,7 @@
 #' For high-throughput implementation of taxmapper, it's recommended to set
 #' streamline = TRUE.
 #'
-#' @seealso idtax2df, bayestax2df, LCA2df, ensembleTax, pr2_tax_miner,
-#' silva_tax_miner
+#' @seealso idtax2df, bayestax2df, ensembleTax
 #'
 #' @examples
 #' fake.silva <- data.frame(ASV = c("AAAA", "ATCG", "GCGC", "TATA", "TCGA"),
