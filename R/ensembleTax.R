@@ -380,38 +380,6 @@ ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supe
 
   df <- base::cbind(metameta,consensus.tax)
   df <- base::data.frame(base::lapply(df, base::as.character), stringsAsFactors=FALSE)
-  tmp <- c(x, list(consensus.tax))
-  names(tmp) <- c(tablenames, "ensemble")
-  check4frankenstein(tmp, ranknames = ranknames)
   return(df)
 }
 
-check4frankenstein <- function(tbl.list, ranknames = c("kingdom","supergroup","division","class","order","family","genus","species")) {
-  # pull out ensemble and the output of each individual algorithm:
-  ee <- tbl.list[["ensemble"]]
-  tt <- tbl.list[names(tbl.list) != "ensemble"]
-  tt <- dplyr::bind_rows(tt)
-  # extract unique taxonomic paths from the ensemble and all individual tables:
-  uee <- unique(ee, MARGIN = 1)
-  tl <- unique(tt, MARGIN = 1)
-
-  uee <- ee
-  tl <- tt
-  nchex <- nrow(uee)
-  for (row in 1:nchex) {
-    checker <- dplyr::intersect(uee[row , ], tl)
-    if (nrow(checker) == 0){
-      ee <- uee[row , ]
-      tmp <- tl
-      tmp <- tmp[, 1:max(which(!is.na(ee)))]
-      ee <- ee[, 1:max(which(!is.na(ee)))]
-      check2 <- dplyr::intersect(ee, tmp)
-      if (nrow(check2) == 0){
-        # this is a frankensteined assignment. throw an error and break
-        message("Frankenstein assignments detected. You should modify your ensemble parameters and try again.")
-      }
-    }
-  }
-  # if you make it here, there are no frankenstein assignments. print that and you're done
-  message("no Frankenstein assignments detected")
-}
