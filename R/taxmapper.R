@@ -224,7 +224,7 @@ taxmapper <- function(tt,
 
   # read in the synonyms file
   if (synonym.file != "default") {
-    synonyms <- utils::read.csv(synonym.file)
+    synonyms <- utils::read.csv(synonym.file, stringsAsFactors = FALSE)
     synonyms <- synonyms[, colnames(synonyms)[startsWith(colnames(synonyms), "Name")]]
   } else if (synonym.file == "default") {
     synonyms <- ensembleTax::synonyms_20200816
@@ -261,7 +261,7 @@ taxmapper <- function(tt,
           for(tax in pos.taxs) {
             pos.taxs <- c(pos.taxs, getSynonyms(tax, synonyms))
           }
-          pos.taxs <- base::unique(c(orig.tax, pos.taxs))
+          pos.taxs <- base::unique(c(orig.tax, getSynonyms(orig.tax, synonyms), pos.taxs))
         }
         else {
           pos.taxs <- getSynonyms(orig.tax, synonyms)
