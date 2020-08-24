@@ -49,15 +49,22 @@
 #' for retaining Eukaryota when mapping onto a prokaryote-only taxonomic
 #' nomenclature).
 #'
-#' When ignore.format = TRUE, taxmapper removes hyphens, underscores, and spaces
-#' from all elements of tt. Each unique element separated by a hyphen,
-#' underscore, or space, in addition to a concatenated string with each
-#' separate sub-string combined into one, are compiled. It then creates
-#' all-lower and all-upper case versions of these elements, and adds them to the
-#' collection of unique elements. Each of these elements is then searched for
-#' exact name matches in tax2map2. The following taxonomic suffixes are
-#' equivalent when ignore.format = TRUE: phyta, phytes, phyte, and phyceae.
-#' ignore.format is never applied to synonym.file.
+#' When ignore.format = TRUE, names for which taxmapper cannot find exact
+#' matches in tax2map2 are altered in case an exact match was not found due to
+#' formatting issues. To do this taxmapper first checks for hyphens "-",
+#' underscores "_", and single spaces " ". If these are found variants of the
+#' name with the hyphen/underscore/spaces replaced by each of the other two, as
+#' well as all subnames spearated by these characters, and all subnames pasted
+#' together with none of these special characters, are searched against tax2map2
+#' for exact matches. It also creates all-lower and all-upper case versions of
+#' these elements and again searches for exact name matches for these names.
+#' Finally, the following taxonomic suffixes are equivalent when ignore.format =
+#' TRUE: phyta, phytes, phyte, and phyceae. To prevent matching of arbitrary
+#' names often used in reference databases like "Clade X", after creating all of
+#' the above alternative names, those names that begin with any variant of the
+#' words "clade" or "group" and those names that are 2 characters or less are
+#' removed prior to re-searching tax2map2. All alternative names created when
+#' ignore.format = TRUE are also searched for synonyms in synonym.file.
 #'
 #' For high-throughput implementation of taxmapper, it's recommended to set
 #' streamline = TRUE.
@@ -129,6 +136,12 @@ taxmapper <- function(tt,
 
   # function to remove hyphens, underscores, upper case of name
   preprocessTax <- function(taxonomy) {
+    alt.full <- c(stringr::str_replace_all(taxonomy, "-"," "),
+                  stringr::str_replace_all(taxonomy, "-","_"),
+                  stringr::str_replace_all(taxonomy, " ","-"),
+                  stringr::str_replace_all(taxonomy, " ","_"),
+                  stringr::str_replace_all(taxonomy, "_","-"),
+                  stringr::str_replace_all(taxonomy, "_"," "))
     # split terms by hyphens
     no.hyphen <- base::strsplit(taxonomy, "-")
     # split terms by underscores
@@ -136,18 +149,36 @@ taxmapper <- function(tt,
     # split by space:
     no.spc <- base::strsplit(taxonomy, " ")
     # split terms by first instance of underscores and combine previous splits
-    taxs <- c(no.hyphen[[1]], no.underscore[[1]], no.spc,
+    taxs <- c(alt.full,
+              no.hyphen[[1]], no.underscore[[1]], no.spc[[1]],
               paste(no.hyphen[[1]], sep = '', collapse = ''),
               paste(no.underscore[[1]], sep = '', collapse = ''),
               paste(no.spc[[1]], sep = '', collapse = ''),
               taxonomy)
     # remove duplicates
     taxs <- base::unique(taxs)
-    # convert all to lowercase
+    # convert all to lower and uppercase
     no.upper <- base::tolower(taxs)
     no.lower <- base::toupper(taxs)
     # create alternative suffixes for certain taxonomies
     final.taxs <- createAlts(unique(c(taxs, no.upper, no.lower)))
+    # remove names that start with clade/group (and format variants), and/or
+    # short names as these are likely to be numbers
+    cl <- stringr::str_locate(final.taxs, "clade")
+    cl2 <- stringr::str_locate(final.taxs, "Clade")
+    cl3 <- stringr::str_locate(final.taxs, "CLADE")
+    gr <- stringr::str_locate(final.taxs, "group")
+    gr2 <- stringr::str_locate(final.taxs, "Group")
+    gr3 <- stringr::str_locate(final.taxs, "GROUP")
+    ll <- stringr::str_length(final.taxs)
+    rm.rows <- c(which(cl[, "start"] == 1),
+                 which(cl2[, "start"] == 1),
+                 which(cl3[, "start"] == 1),
+                 which(gr[, "start"] == 1),
+                 which(gr2[, "start"] == 1),
+                 which(gr3[, "start"] == 1),
+                 which(ll <= 2))
+    final.taxs <- final.taxs[-rm.rows]
     return(final.taxs)
   }
 

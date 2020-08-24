@@ -73,15 +73,22 @@ used for high-level taxonomic groups that are not found in a database (e.g.
 for retaining Eukaryota when mapping onto a prokaryote-only taxonomic
 nomenclature).
 
-When ignore.format = TRUE, taxmapper removes hyphens, underscores, and spaces
-from all elements of tt. Each unique element separated by a hyphen,
-underscore, or space, in addition to a concatenated string with each
-separate sub-string combined into one, are compiled. It then creates
-all-lower and all-upper case versions of these elements, and adds them to the
-collection of unique elements. Each of these elements is then searched for
-exact name matches in tax2map2. The following taxonomic suffixes are
-equivalent when ignore.format = TRUE: phyta, phytes, phyte, and phyceae.
-ignore.format is never applied to synonym.file.
+When ignore.format = TRUE, names for which taxmapper cannot find exact
+matches in tax2map2 are altered in case an exact match was not found due to
+formatting issues. To do this taxmapper first checks for hyphens "-",
+underscores "_", and single spaces " ". If these are found variants of the
+name with the hyphen/underscore/spaces replaced by each of the other two, as
+well as all subnames spearated by these characters, and all subnames pasted
+together with none of these special characters, are searched against tax2map2
+for exact matches. It also creates all-lower and all-upper case versions of
+these elements and again searches for exact name matches for these names.
+Finally, the following taxonomic suffixes are equivalent when ignore.format =
+TRUE: phyta, phytes, phyte, and phyceae. To prevent matching of arbitrary
+names often used in reference databases like "Clade X", after creating all of
+the above alternative names, those names that begin with any variant of the
+words "clade" or "group" and those names that are 2 characters or less are
+removed prior to re-searching tax2map2. All alternative names created when
+ignore.format = TRUE are also searched for synonyms in synonym.file.
 
 For high-throughput implementation of taxmapper, it's recommended to set
 streamline = TRUE.
