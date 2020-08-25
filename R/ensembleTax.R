@@ -254,19 +254,6 @@ ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supe
         }
       }
       c.row <- base::data.frame(base::lapply(c.row, as.character), stringsAsFactors=FALSE)
-      # The below ensures that the consensus is derived from the inputs and not 'frankensteined'
-      tmp1 <- c.row
-      tmp2 <- alltax
-      checker <- dplyr::intersect(tmp1, tmp2)
-      while (nrow(checker) == 0){
-        tmp1 <- tmp1[, -ncol(tmp1)]
-        tmp2 <- tmp2[, -ncol(tmp2)]
-        checker <- dplyr::intersect(tmp1, tmp2)
-      }
-      if (ncol(checker) < n.cols) {
-        c.row[, (ncol(checker)+1):n.cols] <- NA
-      }
-
       # after iterating through the columns add the consensus row to the data frame
       consensus.tax <- base::rbind(consensus.tax, c.row)
     }
@@ -369,18 +356,6 @@ ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supe
         }
       }
       c.row <- base::data.frame(base::lapply(c.row, as.character), stringsAsFactors=FALSE)
-      # The below ensures that the consensus is derived from the inputs and not 'frankensteined'
-      tmp1 <- c.row
-      tmp2 <- alltax
-      checker <- dplyr::intersect(tmp1, tmp2)
-      while (nrow(checker) == 0){
-        tmp1 <- tmp1[, -ncol(tmp1)]
-        tmp2 <- tmp2[, -ncol(tmp2)]
-        checker <- dplyr::intersect(tmp1, tmp2)
-      }
-      if (ncol(checker) < n.cols) {
-        c.row[, (ncol(checker)+1):n.cols] <- NA
-      }
 
       # after iterating through the columns add the consensus row to the data frame
       consensus.tax <- base::rbind(consensus.tax, c.row)

@@ -60,7 +60,8 @@ ranknames. All taxonomy tables should follow the same taxonomic nomenclature
 (e.g. ASV sequences or a colum of asv numbers, etc), and each row of each
 taxonomy table should represent the same ASV/OTU. Use of the functions
 LCA2df, bayestax2df, idtax2df, and/or taxmapper will ensure your taxonomy
-tables meet these requirements.
+tables meet these requirements. Be advised that rownames of each taxonomy
+table are removed by ensembleTax.
 
 Ensemble taxonomic assignments are computed by finding the highest-frequency
 taxonomic assignment for each ASV across all input taxonomy tables. Several
