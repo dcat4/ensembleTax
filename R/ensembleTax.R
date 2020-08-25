@@ -117,10 +117,12 @@ ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supe
   msplitz1 <- function(y) {
     eh <- colnames(y) %in% ranknames
     z <- y[ , eh, drop = FALSE]
+    row.names(z) <- NULL
   }
   msplitz2 <- function(y) {
     eh <- colnames(y) %in% ranknames
     zz <- y[ , !eh, drop = FALSE]
+    row.names(zz) <- NULL
   }
   metameta <- lapply(x, msplitz2)
   x <- lapply(x, msplitz1)
