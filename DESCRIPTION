@@ -1,6 +1,6 @@
 Package: ensembleTax
 Title: Ensemble Taxonomic Assignments of Amplicon Sequencing Data
-Version: 0.0.3
+Version: 0.0.4
 Author: Dylan Catlett [aut, cre], Kevin Son [ctb], Connie Liang [ctb] 
 Maintainer: Dylan Catlett <dcat4444@gmail.com> 
 Description: Creates ensemble taxonomic assignments of amplicon sequencing data 

@@ -58,13 +58,12 @@
 #' together with none of these special characters, are searched against tax2map2
 #' for exact matches. It also creates all-lower and all-upper case versions of
 #' these elements and again searches for exact name matches for these names.
-#' Finally, the following taxonomic suffixes are equivalent when ignore.format =
-#' TRUE: phyta, phytes, phyte, and phyceae. To prevent matching of arbitrary
-#' names often used in reference databases like "Clade X", after creating all of
-#' the above alternative names, those names that begin with any variant of the
-#' words "clade" or "group" and those names that are 2 characters or less are
-#' removed prior to re-searching tax2map2. All alternative names created when
-#' ignore.format = TRUE are also searched for synonyms in synonym.file.
+#' To prevent matching of arbitrary names often used in reference databases like
+#' "Clade X", after creating all of the above alternative names, those names
+#' that begin with any variant of the words "clade" or "group" and those names
+#' that are 2 characters or less are removed prior to re-searching tax2map2. All
+#' alternative names created when ignore.format = TRUE are also searched for
+#' synonyms in synonym.file.
 #'
 #' For high-throughput implementation of taxmapper, it's recommended to set
 #' streamline = TRUE.
@@ -113,27 +112,6 @@ taxmapper <- function(tt,
   }
   tax2map2.ranks <- colnames(tax2map2)
 
-  # function to create alternative terms with the suffix
-  createAlts <- function(taxs) {
-    result <- vector()
-    for (tax in taxs) {
-      a1 <- base::gsub("(phyta)", "phyceae", tax)
-      a2 <- base::gsub("(phyta)", "phyte", tax)
-      a3 <- base::gsub("(phyta)", "phytes", tax)
-      a4 <- base::gsub("(phyceae)", "phyta", tax)
-      a5 <- base::gsub("(phyceae)", "phyte", tax)
-      a6 <- base::gsub("(phyceae)", "phytes", tax)
-      a7 <- base::gsub("(phyte)", "phyta", tax)
-      a8 <- base::gsub("(phyte)", "phyceae", tax)
-      a9 <- base::gsub("(phyte)", "phytes", tax)
-      a10 <- base::gsub("(phytes)", "phyta", tax)
-      a11 <- base::gsub("(phytes)", "phyceae", tax)
-      a12 <- base::gsub("(phytes)", "phyte", tax)
-      result <- c(result, base::unique(c(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)))
-    }
-    return(base::unique(result))
-  }
-
   # function to remove hyphens, underscores, upper case of name
   preprocessTax <- function(taxonomy) {
     alt.full <- c(stringr::str_replace_all(taxonomy, "-"," "),
@@ -161,7 +139,7 @@ taxmapper <- function(tt,
     no.upper <- base::tolower(taxs)
     no.lower <- base::toupper(taxs)
     # create alternative suffixes for certain taxonomies
-    final.taxs <- createAlts(unique(c(taxs, no.upper, no.lower)))
+    final.taxs <- unique(c(taxs, no.upper, no.lower))
     # remove names that start with clade/group (and format variants), and/or
     # short names as these are likely to be numbers
     cl <- stringr::str_locate(final.taxs, "clade")
@@ -257,18 +235,6 @@ taxmapper <- function(tt,
       for (col in 1:ncol(taxin.u)) {
         # keep track of the original taxonomy name
         orig.tax <- taxin.u[row, taxin.cols[col]]
-        ### this bit added to fix buggy behavior
-        if (!is.na(orig.tax)) {
-          # find matching
-          match <- findMapping(orig.tax, tax2map2.u)
-          if (is.data.frame(match)) {
-            combined <- cbind(taxin.u[row, ], match)
-            mapped <- rbind(mapped, combined)
-            matched <- TRUE
-            break
-          }
-        }
-        ### this bit is what was done before
         # process the name to get alternatives by igorning its format
         if (ignore.format) {
           pos.taxs <- preprocessTax(orig.tax)

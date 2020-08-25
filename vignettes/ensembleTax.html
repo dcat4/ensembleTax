@@ -137,118 +137,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">data</span>(<span class="st">&quot;rubric.sample&quot;</span>)
 
 <span class="kw">head</span>(idtax.pr2.sample)</code></pre></div>
-<pre><code>## [[1]]
-## [[1]]$taxon
-## [1] &quot;Root&quot;                       &quot;Eukaryota&quot;                  &quot;Stramenopiles&quot;             
-## [4] &quot;Ochrophyta&quot;                 &quot;Bacillariophyta&quot;            &quot;Bacillariophyta_X&quot;         
-## [7] &quot;Polar-centric-Mediophyceae&quot; &quot;Chaetoceros&quot;                &quot;Chaetoceros_debilis_2&quot;     
-## 
-## [[1]]$confidence
-## [1] 82.20536 82.20536 81.01873 81.01873 81.01873 81.01873 81.01873 81.01873 30.03599
-## 
-## 
-## [[2]]
-## [[2]]$taxon
-## [1] &quot;Root&quot;                       &quot;Eukaryota&quot;                  &quot;Stramenopiles&quot;             
-## [4] &quot;Ochrophyta&quot;                 &quot;Bacillariophyta&quot;            &quot;Bacillariophyta_X&quot;         
-## [7] &quot;Polar-centric-Mediophyceae&quot; &quot;Thalassiosira&quot;              &quot;Thalassiosira_hispida&quot;     
-## 
-## [[2]]$confidence
-## [1] 71.33810 71.33810 66.29660 64.95401 64.95401 64.95401 59.40574 19.26610 16.38823
-## 
-## 
-## [[3]]
-## [[3]]$taxon
-## [1] &quot;Root&quot;           &quot;Eukaryota&quot;      &quot;Stramenopiles&quot;  &quot;Ochrophyta&quot;     &quot;MOCH-2&quot;        
-## [6] &quot;MOCH-2_X&quot;       &quot;MOCH-2_XX&quot;      &quot;MOCH-2_XXX&quot;     &quot;MOCH-2_XXX_sp.&quot;
-## 
-## [[3]]$confidence
-## [1] 67.78686 67.78686 61.88273 58.94742 49.33213 49.33213 49.33213 49.33213 49.33213
-## 
-## 
-## [[4]]
-## [[4]]$taxon
-## [1] &quot;Root&quot;             &quot;Eukaryota&quot;        &quot;Archaeplastida&quot;   &quot;Streptophyta&quot;    
-## [5] &quot;Embryophyceae&quot;    &quot;Embryophyceae_X&quot;  &quot;Embryophyceae_XX&quot; &quot;Taxus&quot;           
-## [9] &quot;Taxus_baccata&quot;   
-## 
-## [[4]]$confidence
-## [1] 45.398229 45.398229 18.583773 18.157256 12.643442 12.643442 12.643442  8.117989  8.117989
-## 
-## 
-## [[5]]
-## [[5]]$taxon
-## [1] &quot;Root&quot;           &quot;Eukaryota&quot;      &quot;Stramenopiles&quot;  &quot;Opalozoa&quot;       &quot;MAST-3&quot;        
-## [6] &quot;MAST-3B&quot;        &quot;MAST-3B_X&quot;      &quot;MAST-3B_XX&quot;     &quot;MAST-3B_XX_sp.&quot;
-## 
-## [[5]]$confidence
-## [1] 92.47240 92.47240 90.81644 47.09622 46.51236 45.64512 45.64512 45.64512 45.64512</code></pre>
+<pre><code>##   A test set of class 'Taxa' with length 5
+##     confidence taxon
+## [1]     30.04% Root; Eukaryota; Stramenopiles; Ochrophyta; Bacillariophyta; Bacillariophyta_X; Polar-centric-Mediophyceae; Chaetoceros; Chaetocero...
+## [2]     16.39% Root; Eukaryota; Stramenopiles; Ochrophyta; Bacillariophyta; Bacillariophyta_X; Polar-centric-Mediophyceae; Thalassiosira; Thalassi...
+## [3]     49.33% Root; Eukaryota; Stramenopiles; Ochrophyta; MOCH-2; MOCH-2_X; MOCH-2_XX; MOCH-2_XXX; MOCH-2_XXX_sp....                                
+## [4]      8.12% Root; Eukaryota; Archaeplastida; Streptophyta; Embryophyceae; Embryophyceae_X; Embryophyceae_XX; Taxus; Taxus_baccata...              
+## [5]     45.65% Root; Eukaryota; Stramenopiles; Opalozoa; MAST-3; MAST-3B; MAST-3B_X; MAST-3B_XX; MAST-3B_XX_sp....</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(idtax.silva.sample)</code></pre></div>
-<pre><code>## [[1]]
-## [[1]]$taxon
-## [1] &quot;Root&quot;              &quot;Eukaryota&quot;         &quot;SAR&quot;               &quot;Stramenopiles&quot;    
-## [5] &quot;Ochrophyta&quot;        &quot;Diatomea&quot;          &quot;Bacillariophytina&quot; &quot;Mediophyceae&quot;     
-## [9] &quot;Chaetoceros&quot;      
-## 
-## [[1]]$confidence
-## [1] 60.26929 55.47228 50.50453 48.89802 47.20018 46.61874 46.15582 45.57871 43.57134
-## 
-## [[1]]$rank
-## [1] &quot;rootrank&quot;    &quot;domain&quot;      &quot;major_clade&quot; &quot;kingdom&quot;     &quot;superphylum&quot; &quot;phylum&quot;     
-## [7] &quot;subphylum&quot;   &quot;class&quot;       &quot;genus&quot;      
-## 
-## 
-## [[2]]
-## [[2]]$taxon
-## [1] &quot;Root&quot;              &quot;Eukaryota&quot;         &quot;SAR&quot;               &quot;Stramenopiles&quot;    
-## [5] &quot;Ochrophyta&quot;        &quot;Diatomea&quot;          &quot;Bacillariophytina&quot; &quot;Mediophyceae&quot;     
-## [9] &quot;Thalassiosira&quot;    
-## 
-## [[2]]$confidence
-## [1] 64.40876 62.34590 55.16122 48.52020 48.52020 48.52020 45.61851 38.14735 27.39857
-## 
-## [[2]]$rank
-## [1] &quot;rootrank&quot;    &quot;domain&quot;      &quot;major_clade&quot; &quot;kingdom&quot;     &quot;superphylum&quot; &quot;phylum&quot;     
-## [7] &quot;subphylum&quot;   &quot;class&quot;       &quot;genus&quot;      
-## 
-## 
-## [[3]]
-## [[3]]$taxon
-## [1] &quot;Root&quot;          &quot;Eukaryota&quot;     &quot;SAR&quot;           &quot;Stramenopiles&quot; &quot;Ochrophyta&quot;   
-## [6] &quot;MOCH-2&quot;       
-## 
-## [[3]]$confidence
-## [1] 70.91750 67.31802 64.52419 63.72148 62.63950 61.55201
-## 
-## [[3]]$rank
-## [1] &quot;rootrank&quot;    &quot;domain&quot;      &quot;major_clade&quot; &quot;kingdom&quot;     &quot;superphylum&quot; &quot;class&quot;      
-## 
-## 
-## [[4]]
-## [[4]]$taxon
-##  [1] &quot;Root&quot;               &quot;Eukaryota&quot;          &quot;Archaeplastida&quot;     &quot;Chloroplastida&quot;    
-##  [5] &quot;Charophyta&quot;         &quot;Phragmoplastophyta&quot; &quot;Streptophyta&quot;       &quot;Embryophyta&quot;       
-##  [9] &quot;Tracheophyta&quot;       &quot;Spermatophyta&quot;      &quot;Pinophyta&quot;         
-## 
-## [[4]]$confidence
-##  [1] 55.95076 50.88138 37.40822 37.40822 37.40822 37.40822 37.40822 31.93052 31.93052 31.15123
-## [11] 29.84479
-## 
-## [[4]]$rank
-##  [1] &quot;rootrank&quot;    &quot;domain&quot;      &quot;major_clade&quot; &quot;kingdom&quot;     &quot;subkingdom&quot;  &quot;phylum&quot;     
-##  [7] &quot;subphylum&quot;   &quot;class&quot;       &quot;subclass&quot;    &quot;infraclass&quot;  &quot;superorder&quot; 
-## 
-## 
-## [[5]]
-## [[5]]$taxon
-## [1] &quot;Root&quot;          &quot;Eukaryota&quot;     &quot;SAR&quot;           &quot;Stramenopiles&quot; &quot;MAST-3&quot;       
-## [6] &quot;MAST-3B&quot;      
-## 
-## [[5]]$confidence
-## [1] 92.92780 92.36003 91.05291 91.05291 91.05291 88.60307
-## 
-## [[5]]$rank
-## [1] &quot;rootrank&quot;    &quot;domain&quot;      &quot;major_clade&quot; &quot;kingdom&quot;     &quot;phylum&quot;      &quot;class&quot;</code></pre>
+<pre><code>##   A test set of class 'Taxa' with length 5
+##     confidence taxon
+## [1]      43.6% Root; Eukaryota; SAR; Stramenopiles; Ochrophyta; Diatomea; Bacillariophytina; Mediophyceae; Chaetoceros...                            
+## [2]      27.4% Root; Eukaryota; SAR; Stramenopiles; Ochrophyta; Diatomea; Bacillariophytina; Mediophyceae; Thalassiosira...                          
+## [3]      61.6% Root; Eukaryota; SAR; Stramenopiles; Ochrophyta; MOCH-2...                                                                            
+## [4]      29.8% Root; Eukaryota; Archaeplastida; Chloroplastida; Charophyta; Phragmoplastophyta; Streptophyta; Embryophyta; Tracheophyta; Spermatop...
+## [5]      88.6% Root; Eukaryota; SAR; Stramenopiles; MAST-3; MAST-3B...</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(bayes.sample)</code></pre></div>
 <pre><code>## $tax
 ##                                                                                                                                    Kingdom    
@@ -313,84 +216,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC             93
 ## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC            66
 ## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT              99
-##                                                                                                                                    Division
-## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC       74
-## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC             95
-## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC           93
-## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC          65
-## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT            99
-##                                                                                                                                    Class
-## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC    59
-## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC          93
-## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC        93
-## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC       58
-## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT         98
-##                                                                                                                                    Order
-## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC    59
-## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC          93
-## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC        93
-## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC       58
-## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT         98
-##                                                                                                                                    Family
-## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC     59
-## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC           93
-## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC         86
-## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC        58
-## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT          98
-##                                                                                                                                    Genus
-## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC    37
-## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC          93
-## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC        59
-## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC       58
-## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT         97
-##                                                                                                                                    Species
-## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC      22
-## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC            93
-## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC          59
-## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC         58
-## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT           48</code></pre>
+##                                                                                                                                    Division Class
+## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC       74    59
+## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC             95    93
+## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC           93    93
+## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC          65    58
+## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT            99    98
+##                                                                                                                                    Order Family
+## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC    59     59
+## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC          93     93
+## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC        93     86
+## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC       58     58
+## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT         98     98
+##                                                                                                                                    Genus Species
+## ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC    37      22
+## GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC          93      93
+## ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC        59      59
+## GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC       58      58
+## GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT         97      48</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(rubric.sample)</code></pre></div>
-<pre><code>## Loading required package: Biostrings</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<pre><code>## 
-## Attaching package: 'BiocGenerics'</code></pre>
-<pre><code>## The following objects are masked from 'package:parallel':
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ, clusterExport,
-##     clusterMap, parApply, parCapply, parLapply, parLapplyLB, parRapply, parSapply,
-##     parSapplyLB</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     IQR, mad, sd, var, xtabs</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     anyDuplicated, append, as.data.frame, basename, cbind, colnames, dirname,
-##     do.call, duplicated, eval, evalq, Filter, Find, get, grep, grepl, intersect,
-##     is.unsorted, lapply, Map, mapply, match, mget, order, paste, pmax, pmax.int,
-##     pmin, pmin.int, Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
-##     table, tapply, union, unique, unsplit, which, which.max, which.min</code></pre>
-<pre><code>## Loading required package: S4Vectors</code></pre>
-<pre><code>## Loading required package: stats4</code></pre>
-<pre><code>## 
-## Attaching package: 'S4Vectors'</code></pre>
-<pre><code>## The following object is masked from 'package:base':
-## 
-##     expand.grid</code></pre>
-<pre><code>## Loading required package: IRanges</code></pre>
-<pre><code>## Loading required package: XVector</code></pre>
-<pre><code>## 
-## Attaching package: 'Biostrings'</code></pre>
-<pre><code>## The following object is masked from 'package:base':
-## 
-##     strsplit</code></pre>
 <pre><code>##   A DNAStringSet instance of length 5
-##     width seq                                                               names               
-## [1]   125 GCACCCACCGATTGAAAAGCCCGGTGAAGAA...TAGAGGAAGGTGAAGTCGTAACAAGGTCTCT sv20747
-## [2]   126 ACACCTACCAATTGAATGGTCCGGTGAGGAC...TAGAGGAAGGTGAAGTTGTAACAAGGTTTCC sv14136
-## [3]   127 GCACCTACCGATTGAACCATACGGTGAGGTC...TAGAGGAAGGTGAAGTCGTAACAAGGTTTCC sv17278
-## [4]   130 ACTCCTACCAATTGAATGATCCATGAAGTGT...TAGAGGAAGGAGAAGTCATAACAAGGTTACC sv3579
-## [5]   124 GCACCTACCGATTGAATGGTCCGGTGAGATC...TAGAGGAAGGTGAAGTCGTAACAAGGTTTCC sv4298</code></pre>
+##     width seq                                                                                                                    names               
+## [1]   125 GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTG...TGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT sv20747
+## [2]   126 ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTG...CAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC sv14136
+## [3]   127 GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACT...AGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC sv17278
+## [4]   130 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTG...TGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC sv3579
+## [5]   124 GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATG...CGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC sv4298</code></pre>
 <div id="ensembletax-pre-processing" class="section level4">
 <h4>ensembleTax pre-processing</h4>
 <p>We see from the above that the data structures returned by our two taxonomic assignment algorithms are different. It is critically important that the order of sequences in the rubric and in the idtaxa-returned Taxon object are the same. idtaxa does not return sequence names, but if you did not alter the order of your sequences as you provided them to idtaxa and/or DNAStringSet when creating your rubric, the ordering should be preserved and you should be good to go.</p>
@@ -415,43 +266,25 @@ bayes.pr2.pretty &lt;-<span class="st"> </span><span class="kw">bayestax2df</spa
                              <span class="dt">return.conf =</span> <span class="ot">FALSE</span>)
 
 <span class="kw">head</span>(idtax.pr2.pretty)</code></pre></div>
-<pre><code>##       svN
-## 1 sv14136
-## 2 sv17278
-## 3 sv20747
-## 4  sv3579
-## 5  sv4298
-##                                                                                                                                  ASV
-## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-##     kingdom    supergroup   division           class             order
-## 1 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 Eukaryota Stramenopiles Ochrophyta            &lt;NA&gt;              &lt;NA&gt;
-## 3 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;
-## 5 Eukaryota Stramenopiles       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;
-##                       family       genus species
-## 1 Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
-## 2                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 3 Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
-## 4                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 5                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;</code></pre>
+<pre><code>##       svN                                                                                                                                ASV
+## 1 sv14136     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
+## 2 sv17278    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+## 3 sv20747      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
+## 4  sv3579 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
+## 5  sv4298       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+##     kingdom    supergroup   division           class             order                     family       genus species
+## 1 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
+## 2 Eukaryota Stramenopiles Ochrophyta            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 3 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
+## 4      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 5 Eukaryota Stramenopiles       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(idtax.silva.pretty)</code></pre></div>
-<pre><code>##       svN
-## 1 sv14136
-## 2 sv17278
-## 3 sv20747
-## 4  sv3579
-## 5  sv4298
-##                                                                                                                                  ASV
-## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+<pre><code>##       svN                                                                                                                                ASV
+## 1 sv14136     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
+## 2 sv17278    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+## 3 sv20747      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
+## 4  sv3579 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
+## 5  sv4298       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
 ##      domain       phylum   class order family genus
 ## 1 Eukaryota         &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;
 ## 2 Eukaryota Eukaryota_ph  MOCH-2  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;
@@ -459,30 +292,18 @@ bayes.pr2.pretty &lt;-<span class="st"> </span><span class="kw">bayestax2df</spa
 ## 4 Eukaryota         &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;
 ## 5 Eukaryota       MAST-3 MAST-3B  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(bayes.pr2.pretty)</code></pre></div>
-<pre><code>##       svN
-## 1 sv14136
-## 2 sv17278
-## 3 sv20747
-## 4  sv3579
-## 5  sv4298
-##                                                                                                                                  ASV
-## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-##     kingdom     supergroup     division           class             order
-## 1 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X
-## 3 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X
-## 5 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B
-##                       family       genus        species
-## 1 Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
-## 2                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
-## 3 Polar-centric-Mediophyceae Chaetoceros           &lt;NA&gt;
-## 4           Embryophyceae_XX        &lt;NA&gt;           &lt;NA&gt;
-## 5                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.</code></pre>
+<pre><code>##       svN                                                                                                                                ASV
+## 1 sv14136     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
+## 2 sv17278    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+## 3 sv20747      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
+## 4  sv3579 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
+## 5  sv4298       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+##     kingdom     supergroup     division           class             order                     family       genus        species
+## 1 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
+## 2 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
+## 3 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros           &lt;NA&gt;
+## 4 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X           Embryophyceae_XX        &lt;NA&gt;           &lt;NA&gt;
+## 5 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.</code></pre>
 <p>We see that each taxonomy table is now a dataframe sorted by the column “svN”.</p>
 </div>
 <div id="the-taxmapper-algorithm" class="section level4">
@@ -498,18 +319,12 @@ bayes.pr2.pretty &lt;-<span class="st"> </span><span class="kw">bayestax2df</spa
                       <span class="dt">streamline =</span> <span class="ot">TRUE</span>,
                       <span class="dt">outfilez =</span> <span class="ot">NULL</span>)
 <span class="kw">head</span>(idtax.silva.mapped2pr2)</code></pre></div>
-<pre><code>##       svN
-## 1 sv14136
-## 2 sv17278
-## 3 sv20747
-## 4  sv3579
-## 5  sv4298
-##                                                                                                                                  ASV
-## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+<pre><code>##       svN                                                                                                                                ASV
+## 1 sv14136     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
+## 2 sv17278    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+## 3 sv20747      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
+## 4  sv3579 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
+## 5  sv4298       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
 ##     kingdom    supergroup   division  class   order family genus species
 ## 1 Eukaryota          &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
 ## 2 Eukaryota Stramenopiles Ochrophyta MOCH-2    &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
@@ -533,30 +348,18 @@ eTax1 &lt;-<span class="st"> </span><span class="kw">ensembleTax</span>(xx,
                      <span class="dt">assign.threshold =</span> <span class="dv">0</span>, 
                      <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx)))
 <span class="kw">head</span>(eTax1)</code></pre></div>
-<pre><code>##       svN
-## 1 sv14136
-## 2 sv17278
-## 3 sv20747
-## 4  sv3579
-## 5  sv4298
-##                                                                                                                                  ASV
-## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-##     kingdom    supergroup   division           class             order
-## 1 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 Eukaryota Stramenopiles Ochrophyta          MOCH-2              &lt;NA&gt;
-## 3 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4 Eukaryota          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;
-## 5 Eukaryota Stramenopiles   Opalozoa          MAST-3           MAST-3B
-##                       family       genus species
-## 1 Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
-## 2                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 3 Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
-## 4                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 5                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;</code></pre>
+<pre><code>##       svN                                                                                                                                ASV
+## 1 sv14136     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
+## 2 sv17278    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+## 3 sv20747      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
+## 4  sv3579 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
+## 5  sv4298       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+##     kingdom    supergroup   division           class             order                     family       genus species
+## 1 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
+## 2 Eukaryota Stramenopiles Ochrophyta          MOCH-2              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 3 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
+## 4 Eukaryota          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 5 Eukaryota Stramenopiles   Opalozoa          MAST-3           MAST-3B                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;</code></pre>
 <p>Just as an example of what is possible, we might tell <em>ensembleTax</em> not to count non-assignments (NA’s) by setting <em>count.na = FALSE</em>. Further, we might specify that the assignments in the idtax-pr2 table should be weighted double the other two (<em>weights = c(2,1,1)</em>) if we suspect that these are the most robust assignments for our ASV data set. Here’s what that looks like:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax2 &lt;-<span class="st"> </span><span class="kw">ensembleTax</span>(xx, 
                      <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
@@ -566,30 +369,18 @@ eTax1 &lt;-<span class="st"> </span><span class="kw">ensembleTax</span>(xx,
                      <span class="dt">assign.threshold =</span> <span class="dv">0</span>, 
                      <span class="dt">weights=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>))
 <span class="kw">head</span>(eTax2)</code></pre></div>
-<pre><code>##       svN
-## 1 sv14136
-## 2 sv17278
-## 3 sv20747
-## 4  sv3579
-## 5  sv4298
-##                                                                                                                                  ASV
-## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-##     kingdom     supergroup     division           class             order
-## 1 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X
-## 3 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X
-## 5 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B
-##                       family       genus        species
-## 1 Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
-## 2                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
-## 3 Polar-centric-Mediophyceae Chaetoceros           &lt;NA&gt;
-## 4           Embryophyceae_XX        &lt;NA&gt;           &lt;NA&gt;
-## 5                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.</code></pre>
+<pre><code>##       svN                                                                                                                                ASV
+## 1 sv14136     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
+## 2 sv17278    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+## 3 sv20747      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
+## 4  sv3579 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
+## 5  sv4298       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+##     kingdom     supergroup     division           class             order                     family       genus        species
+## 1 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
+## 2 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
+## 3 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros           &lt;NA&gt;
+## 4 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X           Embryophyceae_XX        &lt;NA&gt;           &lt;NA&gt;
+## 5 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.</code></pre>
 <p>One more making use of the tiebreakz argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax3 &lt;-<span class="st"> </span><span class="kw">ensembleTax</span>(xx, 
                      <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
@@ -599,30 +390,18 @@ eTax1 &lt;-<span class="st"> </span><span class="kw">ensembleTax</span>(xx,
                      <span class="dt">assign.threshold =</span> <span class="dv">0</span>, 
                      <span class="dt">weights=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>))
 <span class="kw">head</span>(eTax3)</code></pre></div>
-<pre><code>##       svN
-## 1 sv14136
-## 2 sv17278
-## 3 sv20747
-## 4  sv3579
-## 5  sv4298
-##                                                                                                                                  ASV
-## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-##     kingdom     supergroup     division           class             order
-## 1 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X
-## 3 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X
-## 5 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B
-##                       family       genus        species
-## 1 Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
-## 2                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
-## 3 Polar-centric-Mediophyceae Chaetoceros           &lt;NA&gt;
-## 4           Embryophyceae_XX        &lt;NA&gt;           &lt;NA&gt;
-## 5                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.</code></pre>
+<pre><code>##       svN                                                                                                                                ASV
+## 1 sv14136     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
+## 2 sv17278    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+## 3 sv20747      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
+## 4  sv3579 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
+## 5  sv4298       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
+##     kingdom     supergroup     division           class             order                     family       genus        species
+## 1 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
+## 2 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
+## 3 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros           &lt;NA&gt;
+## 4 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X           Embryophyceae_XX        &lt;NA&gt;           &lt;NA&gt;
+## 5 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.</code></pre>
 </div>
 </div>
 </div>
