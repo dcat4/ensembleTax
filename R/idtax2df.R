@@ -85,6 +85,12 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
     rownames(yydf) <- NULL
     rownames(confdf) <- NULL
 
+    # new addition to align formatting with taxmapper
+    yydf <- base::apply(yydf, MARGIN = 2, FUN = as.character)
+    confdf <- base::apply(confdf, MARGIN = 2, FUN = as.character)
+    yydf <- base::as.data.frame(yydf, stringsAsFactors = FALSE)
+    confdf <- base::as.data.frame(confdf, stringsAsFactors = FALSE)
+
     if (return.conf) {
       return(list(yydf, confdf))
     } else if (!return.conf) {
@@ -145,7 +151,7 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
     rownames(conf) <- NULL
 
     # new addition to align formatting with taxmapper
-    tax <- base::apply(ta, MARGIN = 2, FUN = as.character)
+    tax <- base::apply(tax, MARGIN = 2, FUN = as.character)
     conf <- base::apply(conf, MARGIN = 2, FUN = as.character)
     tax <- base::as.data.frame(tax, stringsAsFactors = FALSE)
     conf <- base::as.data.frame(conf, stringsAsFactors = FALSE)
