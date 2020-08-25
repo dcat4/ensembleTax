@@ -257,6 +257,18 @@ taxmapper <- function(tt,
       for (col in 1:ncol(taxin.u)) {
         # keep track of the original taxonomy name
         orig.tax <- taxin.u[row, taxin.cols[col]]
+        ### this bit added to fix buggy behavior
+        if (!is.na(orig.tax)) {
+          # find matching
+          match <- findMapping(orig.tax, tax2map2.u)
+          if (is.data.frame(match)) {
+            combined <- cbind(taxin.u[row, ], match)
+            mapped <- rbind(mapped, combined)
+            matched <- TRUE
+            break
+          }
+        }
+        ### this bit is what was done before
         # process the name to get alternatives by igorning its format
         if (ignore.format) {
           pos.taxs <- preprocessTax(orig.tax)
