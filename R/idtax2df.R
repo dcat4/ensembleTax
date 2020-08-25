@@ -144,6 +144,12 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
     rownames(tax) <- NULL
     rownames(conf) <- NULL
 
+    # new addition to align formatting with taxmapper
+    tax <- base::apply(ta, MARGIN = 2, FUN = as.character)
+    conf <- base::apply(conf, MARGIN = 2, FUN = as.character)
+    tax <- base::as.data.frame(tax, stringsAsFactors = FALSE)
+    conf <- base::as.data.frame(conf, stringsAsFactors = FALSE)
+
     if (return.conf) {
       return(list(tax, conf))
     } else if (!return.conf) {

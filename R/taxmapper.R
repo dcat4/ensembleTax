@@ -297,7 +297,6 @@ taxmapper <- function(tt,
   asv.mapped <- df
 
   asv.mapped <- sort_my_taxtab(asv.mapped, ranknames = tax2map2.ranks)
-
   rownames(asv.mapped) <- NULL
 
   if (!(base::is.null(outfilez))) {

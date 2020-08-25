@@ -90,6 +90,12 @@ bayestax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0,
   rownames(taxdf) <- NULL
   rownames(confdf) <- NULL
 
+  # new addition to try to align formatting w taxmapper
+  taxdf <- base::apply(taxdf, MARGIN = 2, FUN = as.character)
+  confdf <- base::apply(confdf, MARGIN = 2, FUN = as.character)
+  taxdf <- base::as.data.frame(taxdf, stringsAsFactors = FALSE)
+  confdf <- base::as.data.frame(confdf, stringsAsFactors = FALSE)
+
   if (return.conf) {
     return(list(taxdf, confdf))
   } else if (!return.conf) {
