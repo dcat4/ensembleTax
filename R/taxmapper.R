@@ -149,12 +149,12 @@ taxmapper <- function(tt,
     # split by space:
     no.spc <- base::strsplit(taxonomy, " ")
     # split terms by first instance of underscores and combine previous splits
-    taxs <- c(alt.full,
+    taxs <- c(taxonomy,
+              alt.full,
               no.hyphen[[1]], no.underscore[[1]], no.spc[[1]],
               paste(no.hyphen[[1]], sep = '', collapse = ''),
               paste(no.underscore[[1]], sep = '', collapse = ''),
-              paste(no.spc[[1]], sep = '', collapse = ''),
-              taxonomy)
+              paste(no.spc[[1]], sep = '', collapse = ''))
     # remove duplicates
     taxs <- base::unique(taxs)
     # convert all to lower and uppercase
@@ -179,6 +179,8 @@ taxmapper <- function(tt,
                  which(gr3[, "start"] == 1),
                  which(ll <= 2))
     final.taxs <- final.taxs[-rm.rows]
+    # this ensures that the original name is always the first one mapped:
+    final.taxs <- c(taxonomy, final.taxs)
     return(final.taxs)
   }
 

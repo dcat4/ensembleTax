@@ -34,8 +34,8 @@
 #' @param tablenames A character vector of the names of each taxonomy table
 #' provided in x. Default is names(x)
 #' @param ranknames The names of ranks (columns) of the taxonomy tables included
-#' in x. Each element of x should include 1 column named according to each
-#' element in ranknames
+#' in x. These are used to track ASV-identifying data through the ensemble
+#' calculations.
 #' @param weights A numeric vector with length = length(x) that specifies
 #' relative weights to the taxonomic assignments in the corresponding element of
 #' x. Default is a vector with all elements =1 to specify equal weighting of
