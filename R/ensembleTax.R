@@ -9,7 +9,8 @@
 #' (e.g. ASV sequences or a colum of asv numbers, etc), and each row of each
 #' taxonomy table should represent the same ASV/OTU. Use of the functions
 #' LCA2df, bayestax2df, idtax2df, and/or taxmapper will ensure your taxonomy
-#' tables meet these requirements.
+#' tables meet these requirements. Be advised that rownames of each taxonomy
+#' table are removed by ensembleTax.
 #'
 #' Ensemble taxonomic assignments are computed by finding the highest-frequency
 #' taxonomic assignment for each ASV across all input taxonomy tables. Several
@@ -117,12 +118,18 @@ ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supe
   msplitz1 <- function(y) {
     eh <- colnames(y) %in% ranknames
     z <- y[ , eh, drop = FALSE]
-    row.names(z) <- NULL
+    if (!is.null(row.names(z))) {
+      row.names(z) <- NULL
+    }
+    z
   }
   msplitz2 <- function(y) {
     eh <- colnames(y) %in% ranknames
     zz <- y[ , !eh, drop = FALSE]
-    row.names(zz) <- NULL
+    if (!is.null(row.names(zz))) {
+      row.names(zz) <- NULL
+    }
+    zz
   }
   metameta <- lapply(x, msplitz2)
   x <- lapply(x, msplitz1)
