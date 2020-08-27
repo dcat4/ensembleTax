@@ -3,6 +3,8 @@ Meta/.Rapp.history
 inst/.DS_Store
 .Rhistory
 .DS_Store
-
+add_tax_dbs.Rmd
 doc
 Meta
+how_to_add_synonyms.Rmd
+add_tax_tab_from_csv.Rmd
