@@ -24,7 +24,7 @@ ensembleTax solves this problem by providing flexible algorithms that synthesize
 Download instructions
 ---------------------
 
-The ensembleTax package is available on Github and ... To install from Github, first install ensembleTax's dependencies from CRAN and Bioconductor (and install Bioconductor if you don't have it), then use devtools to install from Github as follows:
+The ensembleTax package is available on Github (and hopefully CRAN soon). To install from Github, first install ensembleTax's dependencies from CRAN and Bioconductor (and install Bioconductor if you don't have it), then use devtools to install from Github as follows:
 
 ``` r
 install.packages(c("dplyr", "stringr", "usethis"))
@@ -49,15 +49,21 @@ Additional functions are included for pre-processing taxonomic assignments gener
 
 The taxonomic assignment algorithms explicitly supported by ensembleTax are:
 
-1.  bayesian classifier as implemented in dada2's assignTaxonomy.
+1.  RDP bayesian classifier as implemented in dada2's assignTaxonomy.
 2.  idtaxa algorithm as implemented in DECIPHER.
 
 Supported reference databases include:
 
 1.  Silva SSU NR reference database v138 (silva).
 2.  Protistan Ribosomal Reference database v4.12.0 (pr2).
+3.  RDP train set v16
+4.  GreenGenes v13.8 clustered at 97% similarity
 
 Note that other databases may still be used with ensembleTax, but they must be mapped onto the taxonomic nomenclatures employed by Silva and/or pr2 using *taxmapper*, or the user must extract all unique taxonomic assignments from the database and format them properly for use with *taxmapper*.
+
+A vignette that shows how to extract taxonomic assignments from a database not supported by the ensembleTax package can be found here: <https://github.com/dcat4/ensembleTax/blob/master/add_tax_dbs.md>
+
+A vignette that shows how to incorporate taxonomic assignments produced outside of R into an ensembleTax workflow can be found here: <https://github.com/dcat4/ensembleTax/blob/master/add_tax_tab_from_csv.md>
 
 ### ensembleTax 'pipeline' demonstration
 
@@ -138,7 +144,7 @@ head(rubric.sample)
 
 We see from the above that the data structures returned by our two taxonomic assignment algorithms are different. It is critically important that the order of sequences in the rubric and in the idtaxa-returned Taxon object are the same. idtaxa does not return sequence names, but if you did not alter the order of your sequences as you provided them to idtaxa and/or DNAStringSet when creating your rubric, the ordering should be preserved and you should be good to go.
 
-Here we'll run these tables through ensembleTax's pre-processing functions. Supplying a rubric allows ensembleTax to give each taxonomy table the same ASV- identifying information and to better track and organize your data.
+Here we'll run these tables through ensembleTax's pre-processing functions. Supplying a rubric allows ensembleTax to give each taxonomy table the same ASV-identifying information and to better track and organize your data.
 
 ``` r
 idtax.pr2.pretty <- idtax2df(idtax.pr2.sample, 
@@ -161,32 +167,92 @@ bayes.pr2.pretty <- bayestax2df(bayes.sample,
                              return.conf = FALSE)
 ```
 
-Again if you want to view the data, do this:
+Again to view the data, do this:
 
 ``` r
+# remove ASV columns from tax tables for easier viewing:
+idtax.pr2.pretty <- idtax.pr2.pretty[ , -which(names(idtax.pr2.pretty) %in% c("ASV"))]
+idtax.silva.pretty <- idtax.silva.pretty[ , -which(names(idtax.silva.pretty) %in% c("ASV"))]
+bayes.pr2.pretty <- bayes.pr2.pretty[ , -which(names(bayes.pr2.pretty) %in% c("ASV"))]
+
 head(idtax.pr2.pretty)
+```
+
+    ##       svN   kingdom    supergroup   division           class             order
+    ## 1 sv14136 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
+    ## 2 sv17278 Eukaryota Stramenopiles Ochrophyta            <NA>              <NA>
+    ## 3 sv20747 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
+    ## 4  sv3579      <NA>          <NA>       <NA>            <NA>              <NA>
+    ## 5  sv4298 Eukaryota Stramenopiles       <NA>            <NA>              <NA>
+    ##                       family       genus species
+    ## 1 Polar-centric-Mediophyceae        <NA>    <NA>
+    ## 2                       <NA>        <NA>    <NA>
+    ## 3 Polar-centric-Mediophyceae Chaetoceros    <NA>
+    ## 4                       <NA>        <NA>    <NA>
+    ## 5                       <NA>        <NA>    <NA>
+
+``` r
 head(idtax.silva.pretty)
+```
+
+    ##       svN    domain       phylum   class order family genus
+    ## 1 sv14136 Eukaryota         <NA>    <NA>  <NA>   <NA>  <NA>
+    ## 2 sv17278 Eukaryota Eukaryota_ph  MOCH-2  <NA>   <NA>  <NA>
+    ## 3 sv20747 Eukaryota         <NA>    <NA>  <NA>   <NA>  <NA>
+    ## 4  sv3579 Eukaryota         <NA>    <NA>  <NA>   <NA>  <NA>
+    ## 5  sv4298 Eukaryota       MAST-3 MAST-3B  <NA>   <NA>  <NA>
+
+``` r
 head(bayes.pr2.pretty)
 ```
+
+    ##       svN   kingdom     supergroup     division           class
+    ## 1 sv14136 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta
+    ## 2 sv17278 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2
+    ## 3 sv20747 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta
+    ## 4  sv3579 Eukaryota Archaeplastida Streptophyta   Embryophyceae
+    ## 5  sv4298 Eukaryota  Stramenopiles     Opalozoa          MAST-3
+    ##               order                     family       genus        species
+    ## 1 Bacillariophyta_X Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
+    ## 2          MOCH-2_X                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
+    ## 3 Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros           <NA>
+    ## 4   Embryophyceae_X           Embryophyceae_XX        <NA>           <NA>
+    ## 5           MAST-3B                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.
 
 We see that each taxonomy table is now a dataframe sorted by the column "svN".
 
 #### The taxmapper algorithm
 
-After pre-processing our taxonomic assignment data sets above, we see we still can't make apples-to-apples comparisons between the "idtax-silva" table and the two others because they employ different ranking and (though this may not be as obvious) naming conventions. *taxmapper* was created to solve this problem.
+After pre-processing our taxonomic assignment data sets above, we see we still can't make apples-to-apples comparisons between the "idtax-silva" table and the other two because they employ different ranking and (though this may not be as obvious) naming conventions. *taxmapper* was created to solve this problem.
 
-Here we'll use taxmapper to 'translate' the idtax-silva taxonomic assignments onto the same taxonomic nomenclature as the other two tables.
+Here we'll use *taxmapper* to 'translate' the idtax-silva taxonomic assignments onto the same taxonomic nomenclature as the other two tables.
+
+Note that if you want to use your own custom synonym.file, there's a vignette showing how to do this here: <https://github.com/dcat4/ensembleTax/blob/master/how_to_add_synonyms.md>
 
 ``` r
 idtax.silva.mapped2pr2 <- taxmapper(idtax.silva.pretty,
-                      tt.ranks = colnames(idtax.silva.pretty)[3:ncol(idtax.silva.pretty)],
+                      tt.ranks = colnames(idtax.silva.pretty)[2:ncol(idtax.silva.pretty)],
                       tax2map2 = "pr2",
                       exceptions = c("Archaea", "Bacteria"),
                       ignore.format = TRUE,
                       synonym.file = "default",
                       streamline = TRUE,
                       outfilez = NULL)
+head(idtax.silva.mapped2pr2)
 ```
+
+    ##       svN   kingdom    supergroup   division  class   order family genus
+    ## 1 sv14136 Eukaryota          <NA>       <NA>   <NA>    <NA>   <NA>  <NA>
+    ## 2 sv17278 Eukaryota Stramenopiles Ochrophyta MOCH-2    <NA>   <NA>  <NA>
+    ## 3 sv20747 Eukaryota          <NA>       <NA>   <NA>    <NA>   <NA>  <NA>
+    ## 4  sv3579 Eukaryota          <NA>       <NA>   <NA>    <NA>   <NA>  <NA>
+    ## 5  sv4298 Eukaryota Stramenopiles   Opalozoa MAST-3 MAST-3B   <NA>  <NA>
+    ##   species
+    ## 1    <NA>
+    ## 2    <NA>
+    ## 3    <NA>
+    ## 4    <NA>
+    ## 5    <NA>
 
 Inspection of the mapped taxonomy table shows that it now mirrors the naming and ranking conventions of the other two taxonomy tables.
 
@@ -209,24 +275,12 @@ eTax1 <- ensembleTax(xx,
 head(eTax1)
 ```
 
-    ##       svN
-    ## 1 sv14136
-    ## 2 sv17278
-    ## 3 sv20747
-    ## 4  sv3579
-    ## 5  sv4298
-    ##                                                                                                                                  ASV
-    ## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-    ## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-    ## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-    ## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-    ## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-    ##     kingdom    supergroup   division           class             order
-    ## 1 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-    ## 2 Eukaryota Stramenopiles Ochrophyta          MOCH-2              <NA>
-    ## 3 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-    ## 4 Eukaryota          <NA>       <NA>            <NA>              <NA>
-    ## 5 Eukaryota Stramenopiles   Opalozoa          MAST-3           MAST-3B
+    ##       svN   kingdom    supergroup   division           class             order
+    ## 1 sv14136 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
+    ## 2 sv17278 Eukaryota Stramenopiles Ochrophyta          MOCH-2              <NA>
+    ## 3 sv20747 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
+    ## 4  sv3579 Eukaryota          <NA>       <NA>            <NA>              <NA>
+    ## 5  sv4298 Eukaryota Stramenopiles   Opalozoa          MAST-3           MAST-3B
     ##                       family       genus species
     ## 1 Polar-centric-Mediophyceae        <NA>    <NA>
     ## 2                       <NA>        <NA>    <NA>
@@ -245,35 +299,27 @@ eTax2 <- ensembleTax(xx,
                      tablenames = names(xx), 
                      ranknames = c("kingdom", "supergroup", "division","class","order","family","genus","species"),
                      tiebreakz = "none", 
-                     count.na=TRUE, 
+                     count.na=FALSE, 
                      assign.threshold = 0, 
                      weights=rep(1,length(xx)))
 head(eTax2)
 ```
 
-    ##       svN
-    ## 1 sv14136
-    ## 2 sv17278
-    ## 3 sv20747
-    ## 4  sv3579
-    ## 5  sv4298
-    ##                                                                                                                                  ASV
-    ## 1     ACACCTACCAATTGAATGGTCCGGTGAGGACTCGGATTGTGGTTTAGCTCCTTCATTGGGGCCTGACTGCAAGAACTTGTCCGAACCTTATCATTTAGAGGAAGGTGAAGTTGTAACAAGGTTTCC
-    ## 2    GCACCTACCGATTGAACCATACGGTGAGGTCCTCGGATTTCATGAATCGACCTTCACTGGGAGATTCGTGAGAGAAGTTGCCCAAACCTCGTGGTTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-    ## 3      GCACCCACCGATTGAAAAGCCCGGTGAAGAATCGGGATTGTAGCGTTGTCCTTCATTGGACATTGCCGTGAGAACCTTTCTGAACCTTGTTTTTTAGAGGAAGGTGAAGTCGTAACAAGGTCTCT
-    ## 4 ACTCCTACCAATTGAATGATCCATGAAGTGTTTGGATTACATTGAAGATGGTGGTTTGCCGCTGTCGACGTCATGAGAAGTTCATTGAACCTTATCATTTAGAGGAAGGAGAAGTCATAACAAGGTTACC
-    ## 5       GCACCTACCGATTGAATGGTCCGGTGAGATCTTCGGACTGCAGCGAAAGTCAGCAATGAGTTAGTCGCGGAAAGTTGATCAAACCTTACCATTTAGAGGAAGGTGAAGTCGTAACAAGGTTTCC
-    ##     kingdom    supergroup   division           class             order
-    ## 1 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-    ## 2 Eukaryota Stramenopiles Ochrophyta          MOCH-2              <NA>
-    ## 3 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-    ## 4 Eukaryota          <NA>       <NA>            <NA>              <NA>
-    ## 5 Eukaryota Stramenopiles   Opalozoa          MAST-3           MAST-3B
-    ##                       family       genus species
-    ## 1 Polar-centric-Mediophyceae        <NA>    <NA>
-    ## 2                       <NA>        <NA>    <NA>
-    ## 3 Polar-centric-Mediophyceae Chaetoceros    <NA>
-    ## 4                       <NA>        <NA>    <NA>
-    ## 5                       <NA>        <NA>    <NA>
+    ##       svN   kingdom     supergroup     division           class
+    ## 1 sv14136 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta
+    ## 2 sv17278 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2
+    ## 3 sv20747 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta
+    ## 4  sv3579 Eukaryota Archaeplastida Streptophyta   Embryophyceae
+    ## 5  sv4298 Eukaryota  Stramenopiles     Opalozoa          MAST-3
+    ##               order                     family       genus        species
+    ## 1 Bacillariophyta_X Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
+    ## 2          MOCH-2_X                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
+    ## 3 Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros           <NA>
+    ## 4   Embryophyceae_X           Embryophyceae_XX        <NA>           <NA>
+    ## 5           MAST-3B                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.
 
-Sickarooni. Check out the other .md links in this repo if you want to see more example analysis. Otherwise happy assigning!
+You'll notice the resolution of assignments is much greater when not counting NA assignments. It should be noted that this likely comes at the cost of higher over-classification error rates, while setting *count.na = TRUE* would be expected to minimize over-classification errors but maximize under-classification errors.
+
+Optimal ensemble assignment parameters will depend on your scientific question, so hopefully you'll poke around with a few different settings and see what makes sense.
+
+Anyhow, that's it, let us know on the issues page if/when you find bugs!
