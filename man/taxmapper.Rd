@@ -23,10 +23,11 @@ taxonomic nomenclature. Should be a dataframe of type char (no factors).}
 names are found in tt. Supply them heirarchically (e.g. kingdom --> species)}
 
 \item{tax2map2}{The taxonomic nomenclature you would like to map onto. pr2
-v4.12.0 and Silva SSU v138 nr taxonomic nomenclatures are included in the
-ensembleTax package. You can map to these by specifying "pr2" or "Silva".
-Otherwise should be a dataframe of type character (no factors) with each
-column corresponding to a taxonomic rank.}
+v4.12.0, Silva SSU v138 nr, GreenGenes v13.8 clustered at 97\% similarity, and
+the RDP train set 16 are included in the ensembleTax package. You can map to
+these by specifying "pr2", "Silva", "gg", or "rdp". Otherwise should be a
+dataframe of type character (no factors) with each column corresponding to a
+taxonomic rank.}
 
 \item{exceptions}{A character vector of taxonomic names at the basal/root
 rank of tt that will be propagated onto the mapped taxonomy. ASVs assigned
@@ -45,7 +46,8 @@ Details.}
 with the ensembleTax package. If a custom taxonomic synonym file is
 preferred, a string corresponding to the name of the csv file should be
 supplied. Taxonomic synonyms are searched when exact name matches are not
-found in tax2map2. ignore.format does not apply to synonyms.}
+found in tax2map2. ignore.format does not apply to synonyms. Specify NULL if
+you wish to forego synonym searches.}
 
 \item{streamline}{If TRUE, only the mapped version of tt is returned as a
 dataframe. If FALSE, a 3-element list is returned where element 1 is the

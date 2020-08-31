@@ -18,9 +18,9 @@ bayestax2df(
 \arguments{
 \item{tt}{The taxonomy table output by DADA2's assignTaxonomy function.}
 
-\item{db}{The database you ran idtaxa against. Either "pr2" or "Silva" are
-supported. You may set to NULL and include a character vector of rank
-(column) names for other databases.}
+\item{db}{The database you ran idtaxa against. Either "pr2", "silva", "rdp",
+or "gg" are supported. You may set to NULL and include a character vector of
+rank (column) names for other databases.}
 
 \item{ranks}{NULL, or a character vector of column names if db is set to NULL}
 
@@ -45,11 +45,11 @@ ensembleTax
 }
 \details{
 For consistency with dada2's assignTaxonomy function, when used with
-Silva it subsamples the ranks c("domain", "phylum", "class", "order",
-"family", "genus"). Set db = NULL and supply ranks for databases that aren't
-directly supported. If a rubric is supplied with ASV-identifying meta-data
-(this is highly recommended), the output taxonomy table is sorted by the
-ASV-identifying data.
+Silva, RDP, or GreenGenes it subsamples the ranks c("domain", "phylum",
+"class", "order", "family", "genus"). Set db = NULL and supply ranks for
+databases that aren't directly supported. If a rubric is supplied with
+ASV-identifying meta-data (this is highly recommended), the output taxonomy
+table is sorted by the ASV-identifying data.
 }
 \examples{
 data("bayes.sample")

@@ -17,8 +17,8 @@ idtax2df(
 \arguments{
 \item{tt}{The taxonomy table output by DECIPHER's idtaxa algorithm}
 
-\item{db}{The database you ran idtaxa against. Either "pr2" or "silva" are
-supported.}
+\item{db}{The database you ran idtaxa against. Either "pr2", "silva", "rdp",
+or "gg" are supported.}
 
 \item{ranks}{NULL, or a character vector of column names if db is set to NULL}
 
@@ -26,10 +26,10 @@ supported.}
 be set to NA. This can also be done with DECIPHER's idtaxa but is included
 here for convenience.}
 
-\item{rubric}{NULL, or a DNAStringSet (see Biostrings package) with ASV
-sequences named by your preferred ASV identifier. Both the ASV sequence and
-identifier will be merged with the output dataframe. If NULL, not only ASV
-sequences are included in the output dataframe.}
+\item{rubric}{a DNAStringSet (see Biostrings package) with ASV sequences
+named by your preferred ASV identifier. Both the ASV sequence and identifier
+will be merged with the output dataframe. If NULL, not only ASV sequences are
+included in the output dataframe.}
 
 \item{return.conf}{If TRUE, returns a list where the first element is your
 formatted taxonomy table and the second element is a dataframe of bootstrap
@@ -42,11 +42,10 @@ with the algorithms used in ensembleTax.
 }
 \details{
 For consistency with DADA2's assignTaxonomy function, when used with
-Silva it subsamples the ranks c("domain", "phylum", "class", "order",
-"family", "genus"). Set db = NULL and supply ranks for databases that aren't
-directly supported. If a rubric is supplied with ASV-identifying meta-data
-(this is highly recommended), the output taxonomy table is sorted by the
-ASV-identifying data.
+Silva, RDP, or GreenGenes it subsamples the ranks c("domain", "phylum",
+"class", "order", "family", "genus"). Set db = NULL and supply ranks for
+databases that aren't directly supported. The output taxonomy table is sorted
+by the ASV-identifying data supplied in the rubric.
 }
 \examples{
 data("idtax.pr2.sample")

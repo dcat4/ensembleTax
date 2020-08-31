@@ -8,10 +8,11 @@
 #' @param tt.ranks A character vector of the column names where taxonomic
 #' names are found in tt. Supply them heirarchically (e.g. kingdom --> species)
 #' @param tax2map2 The taxonomic nomenclature you would like to map onto. pr2
-#' v4.12.0 and Silva SSU v138 nr taxonomic nomenclatures are included in the
-#' ensembleTax package. You can map to these by specifying "pr2" or "Silva".
-#' Otherwise should be a dataframe of type character (no factors) with each
-#' column corresponding to a taxonomic rank.
+#' v4.12.0, Silva SSU v138 nr, GreenGenes v13.8 clustered at 97% similarity, and
+#' the RDP train set 16 are included in the ensembleTax package. You can map to
+#' these by specifying "pr2", "Silva", "gg", or "rdp". Otherwise should be a
+#' dataframe of type character (no factors) with each column corresponding to a
+#' taxonomic rank.
 #' @param exceptions A character vector of taxonomic names at the basal/root
 #' rank of tt that will be propagated onto the mapped taxonomy. ASVs assigned
 #' to these names will retain these names at their basal/root rank in the mapped
@@ -27,7 +28,8 @@
 #' with the ensembleTax package. If a custom taxonomic synonym file is
 #' preferred, a string corresponding to the name of the csv file should be
 #' supplied. Taxonomic synonyms are searched when exact name matches are not
-#' found in tax2map2. ignore.format does not apply to synonyms.
+#' found in tax2map2. ignore.format does not apply to synonyms. Specify NULL if
+#' you wish to forego synonym searches.
 #' @param streamline If TRUE, only the mapped version of tt is returned as a
 #' dataframe. If FALSE, a 3-element list is returned where element 1 is the
 #' mapping rubric returned as a dataframe, element 2 is a character vector of
@@ -105,10 +107,18 @@ taxmapper <- function(tt,
          taxonomy table. Please do this and try again.")
   }
 
-  if (tax2map2 == "pr2") {
+  if (is.data.frame(tax2map2)){
+    # do nothing
+  } else if (tax2map2 == "pr2") {
     tax2map2 <- ensembleTax::pr2v4.12.0
   } else if (tax2map2 == "Silva") {
     tax2map2 <- ensembleTax::silva.nr.v138
+  } else if (tax2map2 == "rdp") {
+    tax2map2 <- ensembleTax::rdp_train_set_16
+  } else if (tax2map2 == "gg") {
+    tax2map2 <- ensembleTax::gg_13_8_train_set_97
+  } else {
+    stop("No valid tax2map2 object supplied.")
   }
   tax2map2.ranks <- colnames(tax2map2)
 
@@ -175,7 +185,7 @@ taxmapper <- function(tt,
         colnames(matched.row) <- base::rev(cols)
         # grab only the first match found
         matched.row[1:(length(cols)-i+1)] <- matchings[1, ][1:(length(cols)-i+1)]
-        return (matched.row)
+        return(matched.row)
       }
     }
     return(NA)
@@ -183,6 +193,9 @@ taxmapper <- function(tt,
 
   # function to search through the synonyms data frame to find synonyms for given taxonomy name
   getSynonyms <- function(taxonomy, syn.df) {
+    if (is.null(syn.df)) {
+      return(c(taxonomy))
+    }
     found.rows <- syn.df[which(syn.df == taxonomy, arr.ind=TRUE)[,'row'],] # find rows for synonym
     if (length(found.rows) > 0) {
       # populate the taxonomy with its synonyms
@@ -191,7 +204,7 @@ taxmapper <- function(tt,
     }
     else {
       # if no synonyms found, just return the taxonomy
-      return (c(taxonomy))
+      return(c(taxonomy))
     }
   }
 
@@ -203,7 +216,9 @@ taxmapper <- function(tt,
   tax2map2.u <- base::unique(tax2map2)
 
   # read in the synonyms file
-  if (synonym.file != "default") {
+  if (is.null(synonym.file)) {
+    synonyms <- NULL
+  } else if (synonym.file != "default") {
     synonyms <- utils::read.csv(synonym.file, stringsAsFactors = FALSE)
     synonyms <- synonyms[, colnames(synonyms)[startsWith(colnames(synonyms), "Name")]]
   } else if (synonym.file == "default") {
@@ -244,7 +259,7 @@ taxmapper <- function(tt,
           pos.taxs <- base::unique(c(orig.tax, getSynonyms(orig.tax, synonyms), pos.taxs))
         }
         else {
-          pos.taxs <- getSynonyms(orig.tax, synonyms)
+          pos.taxs <- c(orig.tax, getSynonyms(orig.tax, synonyms))
         }
         # flag to keep track of when the row is already matched
         matched <- FALSE
@@ -309,7 +324,7 @@ taxmapper <- function(tt,
   if (streamline) {
     return(asv.mapped)
   } else {
-    return (list(mapped, not.mapped, asv.mapped))
+    return(list(mapped, not.mapped, asv.mapped))
   }
 }
 

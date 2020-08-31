@@ -31,7 +31,7 @@ calculations.}
 \item{weights}{A numeric vector with length = length(x) that specifies
 relative weights to the taxonomic assignments in the corresponding element of
 x. Default is a vector with all elements =1 to specify equal weighting of
-all taxonomy tables assignments.}
+all taxonomy tables assignments. All values must be integers.}
 
 \item{tiebreakz}{NULL is the default. Alternatively, a character vector
 containing the tablenames in order of priority to be used as a tie-breaker
@@ -40,13 +40,13 @@ frequencies (above assign.threshold).}
 
 \item{count.na}{TRUE or FALSE indicating whether you would like NA
 assignments considered in the ensemble calculation. TRUE considers NA
-assignments, FALSE does not consider NA assignments}
+assignments, FALSE does not consider NA assignments.}
 
 \item{assign.threshold}{A number between 0 and 1 that indicates the
 (weighted) proportion at which a particular taxonomic name must be assigned
 in the input taxonomy tables in order to be assigned to the ensemble
-taxonomic assignment. Proportions are calculated for a given ASV at a given
-rank.}
+taxonomic assignment. When count.na=FALSE, proportions are calculated only
+relative to the number of tables with no NA assignments.}
 }
 \description{
 Computes ensemble taxonomic assignments for each ASV in an amplicon data set
@@ -59,9 +59,9 @@ ranknames. All taxonomy tables should follow the same taxonomic nomenclature
 (naming and ranking convention), should include ASV/OTU-identifying columns
 (e.g. ASV sequences or a colum of asv numbers, etc), and each row of each
 taxonomy table should represent the same ASV/OTU. Use of the functions
-LCA2df, bayestax2df, idtax2df, and/or taxmapper will ensure your taxonomy
-tables meet these requirements. Be advised that rownames of each taxonomy
-table are removed by ensembleTax.
+bayestax2df, idtax2df, and/or taxmapper will ensure your taxonomy tables meet
+these requirements. Be advised that rownames of each taxonomy table are
+removed by ensembleTax.
 
 Ensemble taxonomic assignments are computed by finding the highest-frequency
 taxonomic assignment for each ASV across all input taxonomy tables. Several

@@ -2,26 +2,25 @@
 #' with the algorithms used in ensembleTax.
 
 #' @details For consistency with DADA2's assignTaxonomy function, when used with
-#' Silva it subsamples the ranks c("domain", "phylum", "class", "order",
-#' "family", "genus"). Set db = NULL and supply ranks for databases that aren't
-#' directly supported. If a rubric is supplied with ASV-identifying meta-data
-#' (this is highly recommended), the output taxonomy table is sorted by the
-#' ASV-identifying data.
+#' Silva, RDP, or GreenGenes it subsamples the ranks c("domain", "phylum",
+#' "class", "order", "family", "genus"). Set db = NULL and supply ranks for
+#' databases that aren't directly supported. The output taxonomy table is sorted
+#' by the ASV-identifying data supplied in the rubric.
 #'
 #' @author Dylan Catlett
 #' @author Connie Liang
 #'
 #' @param tt The taxonomy table output by DECIPHER's idtaxa algorithm
-#' @param db The database you ran idtaxa against. Either "pr2" or "silva" are
-#' supported.
+#' @param db The database you ran idtaxa against. Either "pr2", "silva", "rdp",
+#' or "gg" are supported.
 #' @param ranks NULL, or a character vector of column names if db is set to NULL
 #' @param boot The bootstrap threshold below which taxonomic assignments should
 #' be set to NA. This can also be done with DECIPHER's idtaxa but is included
 #' here for convenience.
-#' @param rubric NULL, or a DNAStringSet (see Biostrings package) with ASV
-#' sequences named by your preferred ASV identifier. Both the ASV sequence and
-#' identifier will be merged with the output dataframe. If NULL, not only ASV
-#' sequences are included in the output dataframe.
+#' @param rubric a DNAStringSet (see Biostrings package) with ASV sequences
+#' named by your preferred ASV identifier. Both the ASV sequence and identifier
+#' will be merged with the output dataframe. If NULL, not only ASV sequences are
+#' included in the output dataframe.
 #' @param return.conf If TRUE, returns a list where the first element is your
 #' formatted taxonomy table and the second element is a dataframe of bootstrap
 #' confidence values. If FALSE, your formatted taxonomy table is returned as a
@@ -96,7 +95,7 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
     } else if (!return.conf) {
       return(yydf)
     }
-  } else if (db == "silva") {
+  } else if (db == "silva" || db == "rdp" || db == "gg") {
 
     ranksub <- c("domain", "phylum", "class", "order", "family", "genus")
 

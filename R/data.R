@@ -26,6 +26,33 @@
 #' }
 "silva.nr.v138"
 
+#' All unique taxonomic assignments from the RDP Train Set 16
+#'
+#' @format ^ dataframe with 2472 rows and 6 columns
+#' \describe{
+#'   \item{domain}{domain assignments}
+#'   \item{phylum}{phylum assignments}
+#'   \item{class}{class assignments}
+#'   \item{order}{order assignments}
+#'   \item{family}{family assignments}
+#'   \item{genus}{genus assignments}
+#' }
+"rdp_train_set_16"
+
+#' All unique taxonomic assignments from the GreenGenes v13.8 clusted at 97%
+#'
+#' @format ^ dataframe with 4163 rows and 7 columns
+#' \describe{
+#'   \item{domain}{domain assignments}
+#'   \item{phylum}{phylum assignments}
+#'   \item{class}{class assignments}
+#'   \item{order}{order assignments}
+#'   \item{family}{family assignments}
+#'   \item{genus}{genus assignments}
+#'   \item{species}{genus assignments}
+#' }
+"gg_13_8_train_set_97"
+
 #' Taxonomic synonyms searched by the taxmapper algorithm
 #'
 #' @format ^ dataframe with 174 rows and 11 columns
