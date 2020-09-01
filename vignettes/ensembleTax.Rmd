@@ -21,6 +21,7 @@ sequence analyses.
 
 Please note that this is a simple vignette to demonstrate the functionality of 
 the package. For more detailed discussion and example uses, see here:
+https://github.com/dcat4/ensembleTax/blob/master/README.md
 
 ## The problem
 Taxonomic assignment of marker gene sequences is a critical step of marker gene
