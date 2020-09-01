@@ -305,8 +305,6 @@ taxmapper <- function(tt,
   # filter out duplicates for not mapped taxonomy names
   not.mapped <- base::unique(not.mapped)
 
-  colnames(mapped) <- base::gsub("tax2map2_", "", colnames(mapped))
-
   zz <- base::apply(asv.mapped, MARGIN = 2, FUN = as.character)
   df <- base::as.data.frame(zz, stringsAsFactors = FALSE)
   asv.mapped <- df
