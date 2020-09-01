@@ -27,14 +27,14 @@ Download instructions
 The ensembleTax package is available on Github (and hopefully CRAN soon). To install from Github, first install ensembleTax's dependencies from CRAN and Bioconductor (and install Bioconductor if you don't have it), then use devtools to install from Github as follows:
 
 ``` r
-install.packages(c("dplyr", "stringr", "usethis"))
+install.packages(c("dplyr", "stringr", "usethis", "devtools"))
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install(version = "3.11")
 BiocManager::install(c("DECIPHER", "Biostrings"))
 
 library(devtools)
-devtools::install_github("dcat4/ensembleTax")
+devtools::install_github("dcat4/ensembleTax", build_manual = TRUE, build_vignettes = TRUE)
 packageVersion("ensembleTax")
 ```
 
