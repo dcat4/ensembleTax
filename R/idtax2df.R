@@ -1,4 +1,4 @@
-#' Converts outputs of DECIPHER's idtax algorithm into a dataframe compatible
+#' Converts outputs of DECIPHER's idtaxa algorithm into a dataframe compatible
 #' with the algorithms used in ensembleTax.
 
 #' @details For consistency with DADA2's assignTaxonomy function, when used with
@@ -6,6 +6,12 @@
 #' "class", "order", "family", "genus"). Set db = NULL and supply ranks for
 #' databases that aren't directly supported. The output taxonomy table is sorted
 #' by the ASV-identifying data supplied in the rubric.
+#'
+#' CAUTION: the idtaxa algorithm does not return any ASV-identifying data in its
+#' output "taxon" object. The elements of tt should thus be supplied in the same
+#' order as the elements in rubric. This will typically be the case so long as
+#' there is no tempering with the rubric or taxon object prior to their use
+#' here.
 #'
 #' @author Dylan Catlett
 #' @author Connie Liang
@@ -19,8 +25,8 @@
 #' here for convenience.
 #' @param rubric a DNAStringSet (see Biostrings package) with ASV sequences
 #' named by your preferred ASV identifier. Both the ASV sequence and identifier
-#' will be merged with the output dataframe. If NULL, not only ASV sequences are
-#' included in the output dataframe.
+#' will be merged with the output dataframe. If NULL, ASV-identifying data is
+#' not included in the output dataframe.
 #' @param return.conf If TRUE, returns a list where the first element is your
 #' formatted taxonomy table and the second element is a dataframe of bootstrap
 #' confidence values. If FALSE, your formatted taxonomy table is returned as a

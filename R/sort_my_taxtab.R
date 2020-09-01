@@ -5,7 +5,7 @@
 #'
 #' @author Dylan Catlett
 #'
-#' @param tt A taxonomy table supplied as a dataframe of type char (no factors)
+#' @param tt A taxonomy table supplied as a dataframe (no factors)
 #' @param ranknames A character vector of the names of columns of tt that
 #' contain taxonomic assignments. tt is sorted by columns not included in
 #' ranknames.

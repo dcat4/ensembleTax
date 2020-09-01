@@ -3,6 +3,11 @@ NEWS
 D Catlett
 8/31/2020
 
+ensembleTax v0.0.51
+===================
+
+Minor changes only - documentation cleaning and updating.
+
 ensembleTax v0.0.5
 ==================
 
@@ -30,4 +35,4 @@ Other
 ensembleTax v0.0.4 and earlier
 ==============================
 
-Many small changes, bug fixes, etc. But Dylan was a bad person then and didn't document them well.
+Dylan was a bad person then and didn't document them well.

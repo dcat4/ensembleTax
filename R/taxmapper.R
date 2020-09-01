@@ -4,23 +4,24 @@
 #' @author Kevin Son
 #'
 #' @param tt The input taxonomy table you would like to map onto a new
-#' taxonomic nomenclature. Should be a dataframe of type char (no factors).
+#' taxonomic nomenclature. Should be a dataframe of type char or list (no
+#' factors).
 #' @param tt.ranks A character vector of the column names where taxonomic
 #' names are found in tt. Supply them heirarchically (e.g. kingdom --> species)
 #' @param tax2map2 The taxonomic nomenclature you would like to map onto. pr2
 #' v4.12.0, Silva SSU v138 nr, GreenGenes v13.8 clustered at 97% similarity, and
 #' the RDP train set 16 are included in the ensembleTax package. You can map to
 #' these by specifying "pr2", "Silva", "gg", or "rdp". Otherwise should be a
-#' dataframe of type character (no factors) with each column corresponding to a
-#' taxonomic rank.
+#' dataframe of type character or list (no factors) with each column
+#' corresponding to a taxonomic rank.
 #' @param exceptions A character vector of taxonomic names at the basal/root
 #' rank of tt that will be propagated onto the mapped taxonomy. ASVs assigned
 #' to these names will retain these names at their basal/root rank in the mapped
 #' taxonomy. All other ranks are assigned NA.
-#' @param ignore.format If TRUE, the algorithm modifies taxonomic names to
+#' @param ignore.format If TRUE, the algorithm modifies taxonomic names in tt to
 #' account for common variations in taxonomic name syntax and/or formatting
-#' commonly encountered in reference databases (e.g. Pseudonitzschia will map to
-#' Pseudo-nitzschia). If FALSE, formatting issues may preclude mapping of
+#' commonly encountered in reference databases (e.g. Pseudo-nitzschia will map
+#' to Pseudonitzschia). If FALSE, formatting issues may preclude mapping of
 #' synonymous taxonomic names (e.g. Pseudonitzschia will NOT map to
 #' Pseudo-nitzschia). An exhaustive list of formatting details is included in
 #' Details.
@@ -28,12 +29,12 @@
 #' with the ensembleTax package. If a custom taxonomic synonym file is
 #' preferred, a string corresponding to the name of the csv file should be
 #' supplied. Taxonomic synonyms are searched when exact name matches are not
-#' found in tax2map2. ignore.format does not apply to synonyms. Specify NULL if
+#' found in tax2map2. ignore.format applies to synonyms if TRUE. Specify NULL if
 #' you wish to forego synonym searches.
 #' @param streamline If TRUE, only the mapped version of tt is returned as a
 #' dataframe. If FALSE, a 3-element list is returned where element 1 is the
-#' mapping rubric returned as a dataframe, element 2 is a character vector of
-#' all names that could not be mapped (no exact matches found in tax2map2), and
+#' mapping key returned as a dataframe, element 2 is a character vector of all
+#' names that could not be mapped (no exact matches found in tax2map2), and
 #' element 3 is the mapped version of tt (a dataframe).
 #' @param outfilez If NULL, mapping files are not saved to the current working
 #' directory. Otherwise should be a 3-element character vector including, in
@@ -65,7 +66,9 @@
 #' that begin with any variant of the words "clade" or "group" and those names
 #' that are 2 characters or less are removed prior to re-searching tax2map2. All
 #' alternative names created when ignore.format = TRUE are also searched for
-#' synonyms in synonym.file.
+#' synonyms in synonym.file. Be advised that setting ignore.format = TRUE does
+#' not guarantee a more finely resolved mapped taxonomy table, and can actually
+#' result in a less-resolved mapped taxonomy table in some circumstances.
 #'
 #' For high-throughput implementation of taxmapper, it's recommended to set
 #' streamline = TRUE.

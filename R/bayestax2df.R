@@ -10,20 +10,20 @@
 #' "class", "order", "family", "genus"). Set db = NULL and supply ranks for
 #' databases that aren't directly supported. If a rubric is supplied with
 #' ASV-identifying meta-data (this is highly recommended), the output taxonomy
-#' table is sorted by the ASV-identifying data.
+#' table is sorted by the (first returned column of) ASV-identifying data.
 #'
 #' @param tt The taxonomy table output by DADA2's assignTaxonomy function.
-#' @param db The database you ran idtaxa against. Either "pr2", "silva", "rdp",
-#' or "gg" are supported. You may set to NULL and include a character vector of
-#' rank (column) names for other databases.
+#' @param db The database you ran assignTaxonomy against. Either "pr2", "silva",
+#' "rdp", or "gg" are supported. You may set to NULL and include a character
+#' vector of rank (column) names for other databases.
 #' @param ranks NULL, or a character vector of column names if db is set to NULL
 #' @param boot The bootstrap threshold below which taxonomic assignments should
 #' be set to NA. This can also be done with DADA2's assignTaxonomy but is
 #' included here for convenience.
 #' @param rubric NULL, or a DNAStringSet (see Biostrings package) with ASV
 #' sequences named by your preferred ASV identifier. Both the ASV sequence and
-#' identifier will be merged with the output dataframe. If NULL, ASV-identifiers
-#' sequences are excluded in the output dataframe.
+#' identifier will be merged with the output dataframe. If NULL, ASV-identifying
+#' data are excluded in the output dataframe.
 #' @param return.conf If TRUE, returns a list where the first element is your
 #' formatted taxonomy table and the second element is a dataframe of bootstrap
 #' confidence values. If FALSE, your formatted taxonomy table is returned as a

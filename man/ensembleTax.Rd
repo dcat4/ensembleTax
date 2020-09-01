@@ -16,10 +16,10 @@ ensembleTax(
 )
 }
 \arguments{
-\item{x}{A list of dataframes of type "character" that contain an arbitrary
-number of meta-data columns (e.g. ASV sequences or numbers), and other
-columns named according to ranknames that include taxonomic assignments for
-each ASV in the data set}
+\item{x}{A list of dataframes of type character or list (no factors) that
+contain an arbitrary number of meta-data columns (e.g. ASV sequences or
+numbers), and other columns named according to ranknames that include
+taxonomic assignments for each ASV in the data set}
 
 \item{tablenames}{A character vector of the names of each taxonomy table
 provided in x. Default is names(x)}
@@ -36,42 +36,45 @@ all taxonomy tables assignments. All values must be integers.}
 \item{tiebreakz}{NULL is the default. Alternatively, a character vector
 containing the tablenames in order of priority to be used as a tie-breaker
 in the event that multiple taxonomic names are found at equal (weighted)
-frequencies (above assign.threshold).}
+highest frequencies (above assign.threshold).}
 
 \item{count.na}{TRUE or FALSE indicating whether you would like NA
 assignments considered in the ensemble calculation. TRUE considers NA
-assignments, FALSE does not consider NA assignments.}
+assignments, FALSE does not consider NA assignments. assign.threshold is
+implemented differently depending on whether this is TRUE or FALSE.}
 
 \item{assign.threshold}{A number between 0 and 1 that indicates the
 (weighted) proportion at which a particular taxonomic name must be assigned
 in the input taxonomy tables in order to be assigned to the ensemble
 taxonomic assignment. When count.na=FALSE, proportions are calculated only
-relative to the number of tables with no NA assignments.}
+relative to the number of tables with no NA assignments. When count.na=TRUE,
+proportions are calculated relative to the sum of the weights argument.}
 }
 \description{
 Computes ensemble taxonomic assignments for each ASV in an amplicon data set
 }
 \details{
 The algorithm takes as input a list of taxonomy tables (dataframes of type
-character) and assumes rows correspond to ASVs/OTUs and columns correspond to
-taxonomic assignments at ranks listed in descending order in the input
-ranknames. All taxonomy tables should follow the same taxonomic nomenclature
-(naming and ranking convention), should include ASV/OTU-identifying columns
-(e.g. ASV sequences or a colum of asv numbers, etc), and each row of each
-taxonomy table should represent the same ASV/OTU. Use of the functions
-bayestax2df, idtax2df, and/or taxmapper will ensure your taxonomy tables meet
-these requirements. Be advised that rownames of each taxonomy table are
-removed by ensembleTax.
+character or list; no factors) and assumes rows correspond to ASVs/OTUs and
+columns correspond to taxonomic assignments at ranks listed in descending
+order in the input ranknames. All taxonomy tables should follow the same
+taxonomic nomenclature (naming and ranking convention), should include
+ASV/OTU-identifying columns (e.g. ASV sequences or a column of asv numbers,
+etc), and each row of each taxonomy table should represent the same ASV/OTU.
+Use of the functions bayestax2df, idtax2df, and/or taxmapper will ensure your
+taxonomy tables meet these requirements. Be advised that rownames of each
+taxonomy table are set to NULL by ensembleTax.
 
 Ensemble taxonomic assignments are computed by finding the highest-frequency
 taxonomic assignment for each ASV across all input taxonomy tables. Several
 parameters can be controlled by the user to weight the assignments of
 specific taxonomy tables more highly than others (weights), to favor
 assignments by a specific table in the event that multiple assignments are
-found at the same (weighted) frequency (tiebreakz), to set a (weighted)
-frequency threshold above which a taxonomic assignment must be found to be
-assigned in the ensemble (assign.threshold), and finally to ignore
-non-assignments signalled by NA in the frequency and assignment computations.
+found at the same (weighted) highest frequency (tiebreakz), to set a
+(weighted) frequency threshold above which a taxonomic assignment must be
+found to be assigned in the ensemble (assign.threshold), and finally to
+ignore non-assignments signalled by NA in the frequency and assignment
+computations (count.na).
 
 The output is a dataframe of ASVs and corresponding ensemble taxonomic
 assignments.

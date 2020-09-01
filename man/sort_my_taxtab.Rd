@@ -7,7 +7,7 @@
 sort_my_taxtab(tt, ranknames)
 }
 \arguments{
-\item{tt}{A taxonomy table supplied as a dataframe of type char (no factors)}
+\item{tt}{A taxonomy table supplied as a dataframe (no factors)}
 
 \item{ranknames}{A character vector of the names of columns of tt that
 contain taxonomic assignments. tt is sorted by columns not included in
