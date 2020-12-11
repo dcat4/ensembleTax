@@ -55,7 +55,7 @@
 #' When ignore.format = TRUE, names for which taxmapper cannot find exact
 #' matches in tax2map2 are altered in case an exact match was not found due to
 #' formatting issues. To do this taxmapper first checks for hyphens "-",
-#' underscores "_", and single spaces " ". If these are found variants of the
+#' underscores "_", and single spaces " ". If these are found, variants of the
 #' name with the hyphen/underscore/spaces replaced by each of the other two, as
 #' well as all subnames spearated by these characters, and all subnames pasted
 #' together with none of these special characters, are searched against tax2map2

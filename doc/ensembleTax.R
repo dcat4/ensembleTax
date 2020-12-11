@@ -3,6 +3,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## -----------------------------------------------------------------------------
 library("ensembleTax")
+library("Biostrings")
 
 data("idtax.pr2.sample")
 data("idtax.silva.sample")

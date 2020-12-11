@@ -1,7 +1,12 @@
 NEWS
 ================
 D Catlett
-8/31/2020
+12/11/2020
+
+ensembleTax v1.0.0
+==================
+
+Minor documentation cleaning and code-commenting to prepare for CRAN submission
 
 ensembleTax v0.0.51
 ===================

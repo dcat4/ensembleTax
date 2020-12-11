@@ -58,7 +58,7 @@ The algorithm takes as input a list of taxonomy tables (dataframes of type
 character or list; no factors) and assumes rows correspond to ASVs/OTUs and
 columns correspond to taxonomic assignments at ranks listed in descending
 order in the input ranknames. All taxonomy tables should follow the same
-taxonomic nomenclature (naming and ranking convention), should include
+taxonomic nomenclature (naming and ranking conventions), should include
 ASV/OTU-identifying columns (e.g. ASV sequences or a column of asv numbers,
 etc), and each row of each taxonomy table should represent the same ASV/OTU.
 Use of the functions bayestax2df, idtax2df, and/or taxmapper will ensure your

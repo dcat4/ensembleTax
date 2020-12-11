@@ -50,8 +50,8 @@ by the ASV-identifying data supplied in the rubric.
 CAUTION: the idtaxa algorithm does not return any ASV-identifying data in its
 output "taxon" object. The elements of tt should thus be supplied in the same
 order as the elements in rubric. This will typically be the case so long as
-there is no tempering with the rubric or taxon object prior to their use
-here.
+there is no tampering with the rubric or taxon object in between implementing
+idtaxa and their use here.
 }
 \examples{
 data("idtax.pr2.sample")

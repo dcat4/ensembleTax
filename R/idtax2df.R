@@ -10,8 +10,8 @@
 #' CAUTION: the idtaxa algorithm does not return any ASV-identifying data in its
 #' output "taxon" object. The elements of tt should thus be supplied in the same
 #' order as the elements in rubric. This will typically be the case so long as
-#' there is no tempering with the rubric or taxon object prior to their use
-#' here.
+#' there is no tampering with the rubric or taxon object in between implementing
+#' idtaxa and their use here.
 #'
 #' @author Dylan Catlett
 #' @author Connie Liang
@@ -90,7 +90,7 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
     rownames(yydf) <- NULL
     rownames(confdf) <- NULL
 
-    # new addition to align formatting with taxmapper
+    # align formatting with taxmapper
     yydf <- base::apply(yydf, MARGIN = 2, FUN = as.character)
     confdf <- base::apply(confdf, MARGIN = 2, FUN = as.character)
     yydf <- base::as.data.frame(yydf, stringsAsFactors = FALSE)
@@ -105,14 +105,14 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
 
     ranksub <- c("domain", "phylum", "class", "order", "family", "genus")
 
-    # adapted from dada2 tutorial
+    # subset ranks from tax tab - adapted from dada2 tutorial
     tax <- t(sapply(tt, function(x) {
       m <- match(ranksub, x$rank)
       taxa <- x$taxon[m]
       taxa
     }))
 
-    # adapted from dada2 tutorial
+    # subset ranks from bootstrap matrix - adapted from dada2 tutorial
     conf <- t(sapply(tt, function(x) {
       m <- match(ranksub, x$rank)
       conf <- x$confidence[m]
@@ -143,6 +143,7 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
     conf <- data.frame(conf, stringsAsFactors = FALSE)
     tax[conf < boot] <- NA # NA out below the boot threshold supplied
 
+    # add rubric data
     if (!(is.null(rubric))) {
       rubdf <- data.frame(svN = names(rubric), ASV = as.character(rubric, use.names = FALSE), stringsAsFactors = FALSE)
       tax <- cbind(rubdf,tax)
@@ -155,7 +156,7 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
     rownames(tax) <- NULL
     rownames(conf) <- NULL
 
-    # new addition to align formatting with taxmapper
+    # align formatting with taxmapper
     tax <- base::apply(tax, MARGIN = 2, FUN = as.character)
     conf <- base::apply(conf, MARGIN = 2, FUN = as.character)
     tax <- base::as.data.frame(tax, stringsAsFactors = FALSE)
