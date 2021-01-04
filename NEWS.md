@@ -1,7 +1,12 @@
 NEWS
 ================
 D Catlett
-12/11/2020
+01/04/2020
+
+ensembleTax v1.0.1
+==================
+
+License issue fixed for CRAN submission
 
 ensembleTax v1.0.0
 ==================
