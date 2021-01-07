@@ -50,6 +50,9 @@ taxonomic assignment. When count.na=FALSE, proportions are calculated only
 relative to the number of tables with no NA assignments. When count.na=TRUE,
 proportions are calculated relative to the sum of the weights argument.}
 }
+\value{
+a dataframe containing ensemble taxonomic assignments
+}
 \description{
 Computes ensemble taxonomic assignments for each ASV in an amplicon data set
 }

@@ -64,6 +64,19 @@ file to store the ASVs supplied with tt with their mapped taxonomic
 assignments. Each element of the vector should end in csv (only csv files
 may be saved)}
 }
+\value{
+If streamline = TRUE, a dataframe formatted for use with ensembleTax
+that contains mapped taxonomic assignments for each ASV/OTU in the data set.
+
+If streamline = FALSE, a 3-element list where the first element is a
+dataframe that contains all unique input taxonomic assignments and their
+corresponding mapped outputs, the second element is a character vector that
+contains all taxonomic names that could not be mapped, and the third element
+contains mapped taxonomic assignments for each ASV in the data set.
+
+If is.null(outfilez) = FALSE, three csv files are saved in the current
+working directory containing each of the three list elements above.
+}
 \description{
 Maps an input taxonomy table onto a different taxonomic nomenclature.
 }

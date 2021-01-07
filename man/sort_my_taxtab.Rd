@@ -13,6 +13,9 @@ sort_my_taxtab(tt, ranknames)
 contain taxonomic assignments. tt is sorted by columns not included in
 ranknames.}
 }
+\value{
+a dataframe sorted by the columns specified in ranknames
+}
 \description{
 Sorts taxonomy table by ASV-identifying columns.
 }

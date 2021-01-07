@@ -36,6 +36,9 @@ formatted taxonomy table and the second element is a dataframe of bootstrap
 confidence values. If FALSE, your formatted taxonomy table is returned as a
 dataframe.}
 }
+\value{
+a dataframe formatted for use with taxmapper and/or ensembleTax
+}
 \description{
 Converts outputs of DECIPHER's idtaxa algorithm into a dataframe compatible
 with the algorithms used in ensembleTax.

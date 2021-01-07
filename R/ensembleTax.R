@@ -57,6 +57,8 @@
 #' relative to the number of tables with no NA assignments. When count.na=TRUE,
 #' proportions are calculated relative to the sum of the weights argument.
 #'
+#' @return a dataframe containing ensemble taxonomic assignments
+#'
 #' @seealso idtax2df, bayestax2df, taxmapper
 #'
 #' @examples

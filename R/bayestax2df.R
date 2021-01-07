@@ -29,6 +29,8 @@
 #' confidence values. If FALSE, your formatted taxonomy table is returned as a
 #' dataframe.
 #'
+#' @return a dataframe formatted for use with taxmapper and/or ensembleTax
+#'
 #' @seealso idtax2df, ensembleTax, taxmapper
 #'
 #' @examples

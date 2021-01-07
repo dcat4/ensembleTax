@@ -10,6 +10,8 @@
 #' contain taxonomic assignments. tt is sorted by columns not included in
 #' ranknames.
 #'
+#' @return a dataframe sorted by the columns specified in ranknames
+#'
 #' @seealso bayestax2df, idtax2df
 #'
 #' @examples
