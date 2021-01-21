@@ -21,7 +21,7 @@ ensembleTax solves this problem by providing flexible algorithms that synthesize
 
 ## Download instructions
 
-The ensembleTax package is available on Github (and hopefully CRAN soon). To install from Github, first install ensembleTax's dependencies from CRAN and Bioconductor (and install Bioconductor if you don't have it), then use devtools to install from Github as follows:
+The ensembleTax package is available on Github and CRAN. To install from Github, first install ensembleTax's dependencies from CRAN and Bioconductor (and install Bioconductor if you don't have it), then use devtools to install from Github as follows:
 
 ``` r
 install.packages(c("dplyr", "stringr", "usethis", "devtools"))
@@ -32,6 +32,13 @@ BiocManager::install(c("DECIPHER", "Biostrings"))
 
 library(devtools)
 devtools::install_github("dcat4/ensembleTax", build_manual = TRUE, build_vignettes = TRUE)
+packageVersion("ensembleTax")
+```
+
+Alternatively, you can install from CRAN by doing:
+
+``` r
+install.packages(c("ensembleTax"))
 packageVersion("ensembleTax")
 ```
 
