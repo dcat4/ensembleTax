@@ -10,3 +10,7 @@ how_to_add_synonyms.Rmd
 add_tax_tab_from_csv.Rmd
 README.Rmd
 NEWS.Rmd
+/doc/
+/Meta/
+assign.ensembleTax_tutorial.Rmd
+taxmapper_tutorial.Rmd

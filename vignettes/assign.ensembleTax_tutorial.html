@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="D Catlett" />
+
+
+<title>assign.ensembleTax tutorial</title>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">assign.ensembleTax tutorial</h1>
+<h4 class="author">D Catlett</h4>
+<h4 class="date">5/18/2021</h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This vignette provides detailed examples to demonstrate the functionality of the <em>assign.ensembleTax</em> algorithm included with the ensembleTax package. For a more general demonstration of the ensembleTax package functionality/workflow, please go here: <a href="https://github.com/dcat4/ensembleTax" class="uri">https://github.com/dcat4/ensembleTax</a></p>
+<div id="the-assign.ensembletax-algorithm" class="section level2">
+<h2>The assign.ensembleTax algorithm</h2>
+<p><em>assign.ensembleTax</em>'s purpose is to synthesize taxonomic assignments made by any number of unique taxonomic assignment methods to determine an &quot;ensemble&quot; assignment for each ASV in a data set. <em>assign.ensembleTax</em> requires that each method's taxonomic assignments follow the same taxonomic nomenclature (naming and ranking conventions). If yours don't, use the <em>taxmapper</em> algorithm included with the ensembleTax package (vignette here: ADD LINK DYLAN).</p>
+<p>By default, <em>assign.ensembleTax</em> determines the ensemble taxonomic assignment for each ASV by finding the highest-frequency taxonomic assignment across the input taxonomic assignments (presumably) determined with different methods.</p>
+<p><em>assign.ensembleTax</em> includes several user-tuneable parameters that balance obtaining assignments for a larger number of ASVs at lower taxonomic ranks (at the expense of a likely increase in false-positive annotations) with obtaining more robust assignments for fewer ASVs that are supported by multiple methods. Here we'll step through some examples to demonstrate how the algorithm works and how it's behavior can be modified by users.</p>
+<div id="examples" class="section level3">
+<h3>Examples</h3>
+<p>To demonstrate the functionality of <em>assign.ensembleTax</em>, we'll first create an artificial set of ASVs and corresponding taxonomic assignments obtained with 2 different artificial &quot;methods&quot;. Note these &quot;methods&quot; follow the same naming and ranking conventions.</p>
+<p>So first, load the ensembleTax package, and create the artificial data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ensembleTax&quot;</span>)
+<span class="kw">packageVersion</span>(<span class="st">&quot;ensembleTax&quot;</span>)</code></pre></div>
+<pre><code>## [1] '1.1.1'</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a fake taxonomy table of ASVs and taxonomic assignments</span>
+taxtab1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ASV =</span> <span class="kw">c</span>(<span class="st">&quot;sv1&quot;</span>, <span class="st">&quot;sv2&quot;</span>, <span class="st">&quot;sv3&quot;</span>, <span class="st">&quot;sv4&quot;</span>),
+                          <span class="dt">kingdom =</span> <span class="kw">c</span>(<span class="st">&quot;Eukaryota&quot;</span>, <span class="st">&quot;Eukaryota&quot;</span>, <span class="st">&quot;Eukaryota&quot;</span>, <span class="st">&quot;Eukaryota&quot;</span>), 
+                          <span class="dt">supergroup =</span> <span class="kw">c</span>(<span class="st">&quot;Stramenopile&quot;</span>, <span class="st">&quot;Stramenopile&quot;</span>, <span class="st">&quot;Alveolata&quot;</span>, <span class="st">&quot;Rhizaria&quot;</span>),
+                          <span class="dt">division =</span> <span class="kw">c</span>(<span class="st">&quot;Ochrophyta&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;Dinoflagellata&quot;</span>, <span class="ot">NA</span>),
+                          <span class="dt">class =</span> <span class="kw">c</span>(<span class="st">&quot;Bacillariophyta&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>),
+                          <span class="dt">genus =</span> <span class="kw">c</span>(<span class="st">&quot;Pseudo-nitzschia&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>))
+taxtab2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ASV =</span> <span class="kw">c</span>(<span class="st">&quot;sv1&quot;</span>, <span class="st">&quot;sv2&quot;</span>, <span class="st">&quot;sv3&quot;</span>, <span class="st">&quot;sv4&quot;</span>),
+                          <span class="dt">kingdom =</span> <span class="kw">c</span>(<span class="st">&quot;Eukaryota&quot;</span>, <span class="st">&quot;Eukaryota&quot;</span>, <span class="st">&quot;Eukaryota&quot;</span>, <span class="st">&quot;Eukaryota&quot;</span>), 
+                          <span class="dt">supergroup =</span> <span class="kw">c</span>(<span class="st">&quot;Stramenopile&quot;</span>, <span class="st">&quot;Alveolata&quot;</span>, <span class="st">&quot;Alveolata&quot;</span>, <span class="st">&quot;Stramenopile&quot;</span>),
+                          <span class="dt">division =</span> <span class="kw">c</span>(<span class="st">&quot;Ochrophyta&quot;</span>, <span class="st">&quot;Dinoflagellata&quot;</span>, <span class="st">&quot;Dinoflagellata&quot;</span>, <span class="ot">NA</span>),
+                          <span class="dt">class =</span> <span class="kw">c</span>(<span class="st">&quot;Bacillariophyta&quot;</span>, <span class="ot">NA</span>, <span class="st">&quot;Syndiniales&quot;</span>, <span class="ot">NA</span>),
+                          <span class="dt">genus =</span> <span class="kw">c</span>(<span class="st">&quot;Pseudo-nitzschia&quot;</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>))
+<span class="co"># look at your artificial data:</span>
+taxtab1</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>We see across our 4 ASVs, we have certain ASVs for which the assigned taxonomy is identical across the two tables, or that vary in the number of ranks with assigned names, in the names that were assigned, or both. In what follows we'll see how one might obtain different ensemble assignments based on these data for various scientific questions and/or based on assumptions about the underlying methods employed to obtain each collection of taxonomic assignments.</p>
+<p>Now would be a good time to review the <em>assign.ensembleTax</em> documentation to get a sense of the different parameter spaces available. Here we'll try to demonstrate what these different parameters are doing.</p>
+<div id="example-1-simply-obtain-the-highest-frequency-assignments" class="section level4">
+<h4>Example 1: Simply obtain the highest frequency assignments</h4>
+<p>In this example we'll run <em>assign.ensembleTax</em> with our two taxonomy tables. <em>assign.ensembleTax</em> expects a named list of dataframes with each element corresponding to a uniquely-named taxonomy table, so we'll create that first and then compute ensemble taxonomic assignments with the default parameters.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xx &lt;-<span class="st"> </span><span class="kw">list</span>(taxtab1, taxtab2)
+<span class="kw">names</span>(xx) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;tab1&quot;</span>,<span class="st">&quot;tab2&quot;</span>)
+eTax.def &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx)), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># show the initials and ensemble for ease-of-interpretation:</span>
+taxtab1</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.def</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>Let's break this down. We saw that for sv1, the assignments were in perfect agreement across the two tables and this assignment has been retained in the ensemble. sv2 and sv4 disagreed at the supergroup rank, and so have been left unassigned at the supergroup rank in the ensemble (there is no &quot;highest-frequency&quot; assignment where only two tables are provided and they disagree). For sv3, the assignments were identical down to the division rank, but one table was unassigned (assigned NA) at the class rank while the other was assigned to <em>Syndiniales</em>. When <em>count.NA = TRUE</em>, NA values are counted as assignments and so again there was no highest frequency assignment at the class rank, resulting in the ensemble being assigned only to division where &quot;Dinoflagellata&quot; was assigned in both input tables.</p>
+<p>More on that in a sec. First, we'll add in a third taxonomy table that is identical to taxtab1 and compute ensembles with all 3:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a 3rd fake taxonomy table of ASVs and taxonomic assignments</span>
+taxtab3 &lt;-<span class="st"> </span>taxtab1
+xx.with3 &lt;-<span class="st"> </span><span class="kw">list</span>(taxtab1, taxtab2, taxtab3)
+<span class="kw">names</span>(xx.with3) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;tab1&quot;</span>, <span class="st">&quot;tab2&quot;</span>, <span class="st">&quot;tab3&quot;</span>)
+eTax.def &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx.with3)), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># show the initials and ensemble for ease-of-interpretation:</span>
+taxtab1 <span class="co"># (remember taxtab3 is identical to this, so count 2x)</span></code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.def</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>With 3 taxonomy tables, we see sv2 and sv4 are now assigned at the supergroup rank in the ensemble. For each of these, both taxtab1 and taxtab3 agreed in their assignments, meaning these assignments were found at a higher frequency than the conflicting supergroup assignments in taxtab2.</p>
+</div>
+<div id="example-2-the-count.na-argument" class="section level4">
+<h4>Example 2: The &quot;count.na&quot; argument</h4>
+<p>Here we'll create two ensembles again with the same combination of taxonomy tables, but we'll set <em>count.na = FALSE</em>. This adjustment is meant for users who want to increase the number of annotated ASVs but likely comes at the expense of an increase in false positive annotations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.nona2 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx)), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">FALSE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># show the initials and ensemble for ease-of-interpretation:</span>
+taxtab1 <span class="co"># (remember taxtab3 is identical to this, so count 2x)</span></code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.nona2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.nona3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx.with3)), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">FALSE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># ensemble with 3 tables:</span>
+eTax.nona3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>Here using the 2 taxonomy tables, we see the ensemble assignments for sv1, 2, and 4 are identical to the first example. Where there are conflicting assignments that are not NA, the <em>count.na</em> argument has no impact on ensemble determinations, as you can see in the first ensemble we computed. However, for sv3, we see that we now have an ensemble assignment at the class rank (&quot;Syndiniales&quot;) because the NA assignment wasn't counted (in other words, there was 1 Syndiniales and 0 other assignments that were not NA, so the highest frequency assignment was Syndiniales).</p>
+<p>You might be somewhat surprised to see that sv3's ensemble class assignment is still Syndiniales when we considered all 3 taxonomy tables. In this case NA was the highest frequency assignment, but by setting <em>count.na = FALSE</em> we ignored the NA assignments and so the highest frequency assignment in the absence of NA's was assigned as the ensemble.</p>
+</div>
+<div id="example-3-breaking-ties-with-the-tiebreakz-argument" class="section level4">
+<h4>Example 3: Breaking ties with the &quot;tiebreakz&quot; argument</h4>
+<p>In this example we'll count NA's again but we'll specify that we'd like to prioritize particular taxonomy tables in the event that multiple disagreeing assignments are found at the highest frequency. Again, using our same 3 tables as above.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.tb2 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx)), 
+                              <span class="dt">tiebreakz =</span> <span class="kw">c</span>(<span class="st">&quot;tab2&quot;</span>), 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># show the initials and ensemble for ease-of-interpretation:</span>
+taxtab1 <span class="co"># (remember taxtab3 is identical to this, so count 2x)</span></code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.tb2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.tb3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx.with3)), 
+                              <span class="dt">tiebreakz =</span> <span class="kw">c</span>(<span class="st">&quot;tab2&quot;</span>), 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># ensemble with 3 tables:</span>
+eTax.tb3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>In both ensembles we prioritized assignments in taxtab2 in the event of ties. When only 2 taxonomy tables were used to compute the ensemble, the ensemble assignments are identical to taxtab2 (the table we chose to break ties with). Makes sense. The ensemble computed with 3 tables was not impacted by tie-breaking because taxtab1 and 3 are identical, and so all assignments in these two tables will be found at the highest frequency and there will be no ties.</p>
+<p>One more example computing an ensemble with taxtabs 1 and 2, but prioritizing taxtab1 to break ties and NOT counting NA's:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.tb2 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx)), 
+                              <span class="dt">tiebreakz =</span> <span class="kw">c</span>(<span class="st">&quot;tab1&quot;</span>), 
+                              <span class="dt">count.na=</span><span class="ot">FALSE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># show the initials and ensemble for ease-of-interpretation:</span>
+taxtab1 </code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.tb2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>And now we see where tie-breaking can actually be useful. If you'd like to primarily rely on assignments from one assignment method, but use a second method to fill in annotations where your favorite method is not assigned (assigned NA), you can specify a tiebreaker and ignore NA's in your ensemble assignment determinations.</p>
+</div>
+<div id="example-4-prioritizing-methods-with-the-weights-argument" class="section level4">
+<h4>Example 4: Prioritizing methods with the &quot;weights&quot; argument</h4>
+<p>Another way you can prioritize assignments from one (or more) particular assignment method is by using the weights argument. Weights are specified as integers in the order corresponding to the order of taxonomy tables in the list you supply to <em>assign.ensembleTax</em>. Weighting one table more highly than the other in ensembles determined from only two taxonomy tables will result in identical behavior as tie-breaking. Below we've weighted assignments in taxtab1 double those found in taxtab2:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># counting NA's:</span>
+eTax.wt2 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># show the initials and ensemble for ease-of-interpretation:</span>
+taxtab1 <span class="co"># (remember taxtab3 is identical to this, so count 2x)</span></code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.wt2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># NOT counting NA's:</span>
+eTax.wt2 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">FALSE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+<span class="co"># show the initials and ensemble for ease-of-interpretation:</span>
+eTax.wt2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>Just as expected. The ensemble assignments are identical to taxtab1 when we count NA's, but when we ignore NA's the Syndiniales assignment is filled in by taxtab2.</p>
+<p>What happens when we compute a 3-table ensemble but weight the table that disagrees with the other two (taxtab2) 2x? Let's see:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.wt3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+taxtab1 <span class="co"># (remember taxtab3 is identical to this, so count 2x)</span></code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.wt3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>We see that anywhere where taxonomic assignments were in disagreement, they are not assigned in the ensemble. This is because taxtab 1 and 3 are identical to one another, and we've weighted taxtab2 double. So where assignments disagree there are multiple assignments with the highest frequency. That means we need to specify a tiebreaker if we want to avoid the above scenario. Let's try:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.wttb3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>), 
+                              <span class="dt">tiebreakz =</span> <span class="kw">c</span>(<span class="st">&quot;tab1&quot;</span>), 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+taxtab1 <span class="co"># (remember taxtab3 is identical to this, so count 2x)</span></code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.wttb3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>And now our ensemble determinations match taxtab1 (and 3) where there were disagreements with taxtab2. We can prioritize taxtab2 and see the opposite:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.wttb3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>), 
+                              <span class="dt">tiebreakz =</span> <span class="kw">c</span>(<span class="st">&quot;tab2&quot;</span>), 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="dv">0</span>)
+taxtab1 <span class="co"># (remember taxtab3 is identical to this, so count 2x)</span></code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.wttb3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>Just as we expected.</p>
+</div>
+<div id="example-5-the-assign.threshold-argument" class="section level4">
+<h4>Example 5: the &quot;assign.threshold&quot; argument</h4>
+<p>We have one last argument to address: <em>assign.threshold</em>. This argument interacts with some of the other arguments we've looked at above in ways that may be counter-intuitive to some, so make sure you understand what each of those arguments are doing before spending too much time with <em>assign.threshold</em>.</p>
+<p>Let's take a look at some different thresholds alongside our default parameters first. We'll see how changing <em>assign.threshold</em> can impact tiebreaking and weighting first:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tie-breaking to prioritize table 1, but with assign.threshold = 60%</span>
+eTax.at &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx)), 
+                              <span class="dt">tiebreakz =</span> <span class="kw">c</span>(<span class="st">&quot;tab1&quot;</span>), 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="fl">0.6</span>)
+<span class="co"># show the initials and ensemble for ease-of-interpretation:</span>
+taxtab1 <span class="co"># (remember taxtab3 is identical to this, so count 2x)</span></code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">taxtab2</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eTax.at</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># take away the tiebreaker and weight table 1 2x:</span>
+eTax.at &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="fl">0.6</span>)
+eTax.at</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>Here we see that the <em>assign.threshold</em> argument &quot;over-rules&quot; tie-breaking if the threshold is not satisfied. Although we specified taxtab1 as the tie-breaker, by designating <em>assign.threshold = 0.6</em>, we've required ensemble assignments to be found in at least 60% of the (weighted) assignments. This means disagreements were left unassigned here.</p>
+<p>If we take a look at the 2nd ensemble we computed (where tie-breaking was omitted and we instead weighted taxtab1 2x), we see that our ensemble mirrors taxtab1. This is because the <em>assign.threshold</em> argument operates on weighted assignment frequencies. In this case, where taxtab 1 and 2 disagreed, the assignments in taxtab1 comprised 66% of the weighted assignments, which was larger than our <em>assign.threshold</em>.</p>
+<p>Let's try a couple thresholds applied to 3-table ensemble determinations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a low threshold:</span>
+eTax.at3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx.with3)), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="fl">0.5</span>)
+eTax.at3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a high threshold (need all 3 to agree here for ensemble assignment):</span>
+eTax.at3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx.with3)), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">TRUE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="fl">0.9</span>)
+eTax.at3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata            &lt;NA&gt;             &lt;NA&gt;
+## 4 sv4 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>In our first example, the threshold we applied (0.5) has no impact on the ensemble assignments because taxtab1 and 3 are identical, and therefore their assignments will always comprise more than 50% of the assignments for any ASV.</p>
+<p>In our second example, the threshold of 0.9 (and in this case, any threshold &gt; 0.67) means that the ensemble is only assigned where all three input taxonomy tables are in agreement.</p>
+<p>Finally, we'll take a look at how <em>assign.threshold</em> behaves when <em>count.na = FALSE</em>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a low threshold with count.na = FALSE:</span>
+eTax.at3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx.with3)), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">FALSE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="fl">0.5</span>)
+eTax.at3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota Stramenopile           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota     Rhizaria           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a high threshold with count.na = FALSE (need all 3 to agree here for ensemble assignment):</span>
+eTax.at3 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(xx.with3, 
+                              <span class="dt">tablenames =</span> <span class="kw">names</span>(xx.with3), 
+                              <span class="dt">ranknames =</span> <span class="kw">colnames</span>(taxtab1)[<span class="dv">2</span>:<span class="kw">ncol</span>(taxtab1)],
+                              <span class="dt">weights=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(xx.with3)), 
+                              <span class="dt">tiebreakz =</span> <span class="ot">NULL</span>, 
+                              <span class="dt">count.na=</span><span class="ot">FALSE</span>, 
+                              <span class="dt">assign.threshold =</span> <span class="fl">0.9</span>)
+eTax.at3</code></pre></div>
+<pre><code>##   ASV   kingdom   supergroup       division           class            genus
+## 1 sv1 Eukaryota Stramenopile     Ochrophyta Bacillariophyta Pseudo-nitzschia
+## 2 sv2 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;
+## 3 sv3 Eukaryota    Alveolata Dinoflagellata     Syndiniales             &lt;NA&gt;
+## 4 sv4 Eukaryota         &lt;NA&gt;           &lt;NA&gt;            &lt;NA&gt;             &lt;NA&gt;</code></pre>
+<p>We again see that when the threshold is low (0.5), it has little impact on our ensemble assignments.</p>
+<p>However, implementing a high threshold (0.9) in conjunction with <em>count.na = FALSE</em> notably alters the ensemble assignments. For sv2 and sv4, where taxonomic names (and not NA's) were assigned and disagreed across the 3 tables, the ensemble remains unassigned because no single assignment was found at a frequency greater than 90%. However, for sv3, where 66% of the input class assignments were NA and 33% were Syndiniales, the ensemble is assigned to the class Syndiniales. This is because the <em>assign.threshold</em> does not consider NA assignments when <em>count.na = FALSE</em>. In other words, because NA's were ignored, in this example the Syndiniales assignment comprised 100% of the input assignments and thus surpassed the <em>assign.threshold</em>.</p>
+</div>
+</div>
+<div id="parameter-summary-and-recommendations-for-different-scientific-objectives" class="section level3">
+<h3>Parameter summary and recommendations for different scientific objectives</h3>
+<p>As you can see in the above, the <em>assign.ensembleTax</em> algorithm allows for flexible computations of ensemble taxonomic assignments to suit different scientific questions and applications. There are trade-offs in adjusting each of the above parameters and here we'll discuss what those are and how you might implement <em>assign.ensembleTax</em> for your own objectives.</p>
+<p>The big trade-off one should consider when implementing <em>assign.ensembleTax</em> is how to balance annotating more ASVs at lower ranks vs. only annotating ASVs where annotations are supported by multiple methods (and thus are likely to be quite robust). The former likely comes at the expense of increased false positive annotations (ASVs assigned to a lineage where there really is not enough information to make this determination), while the latter likely comes at the expense of increased false negative annotations (assigning NA where there IS enough information to assign the ASV to a lineage). Adjusting the parameters in<br />
+<em>assign.ensembleTax</em> allows you to decide where you fall on this spectrum.</p>
+<p>First, we'll consider parameters that will promote robust annotations where ASVs are assigned to a taxonomic group at the expense of assigning taxonomy to a smaller number of ASVs/ranks. Arguments that would favor this strategy are: <em>count.na = TRUE</em> <em>assign.threshold = [a high value, say &gt; 0.5]</em> <em>tiebreakz = NULL</em> One could use all of the above settings, or select a few. Broadly, all of these parameters require a taxonomic assignment for a particular ASV to be found in multiple input taxonomy tables in order for it to be assigned to the ensemble. Implementing all of these simultaneously will result in extremely conservative, but extremely well-supported taxonomic assignments. These settings are probably most appropriate for studies that require precise identification of particular ASVs. While lower-rank assignments should in general be interpreted with caution, those supported by multiple methods are likely less error-prone than those determined with a single method.</p>
+<p>Let's say you think (or know), that assignments made by one particular method are more accurate than the other methods you've considered. Perhaps the reference database uses a more robust annotation procedure, or benchmarking exercises show a particular classifier has very low error rates. You can prioritize assignments made by this method with the <em>tiebreakz</em> or <em>weights</em> argument. If you wanted to use secondary methods to &quot;fill in&quot; assignments where your preferred method determined that taxonomy could not be assigned to an ASV, you could subsequently change the <em>count.na</em> argument. These changes bring you closer to the other end of the spectrum...</p>
+<p>At the other end of the spectrum, we'll consider parameters that promote obtaining annotations at lower ranks for a greater number of ASVs at the expense of potentially increasing the number of spurious classifications (either assigning ASVs to an incorrect lineage, or assigning an ASV to a lineage when there is not sufficient phylogenetic resolution to do so). Arguments that would favor this strategy are: <em>count.na = FALSE</em> <em>assign.threshold = [a low value, say 0]</em> <em>tiebreakz = [specify the names of ALL input tables in order of priority]</em> Broadly, all of these parameters favor an increase in the number of ASVs assigned at lower ranks, but these assignments may only be supported by a single method and so may be less robust. These settings are probably most appropriate for studies focused on very broad taxonomic groupings; lower-rank assignments should in general be interpreted with caution, and this is particularly true when ensemble assignments are computed with these parameters.</p>
+<p>That brings us to the end of this tutorial. We include some code for comparing ensemble taxonomic assignments in our ensembleTax package overview vignette, and encourage you to perform such comparisons to test out different settings and optimize ensemble assignments for your particular scientific objectives.</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -10,7 +10,7 @@
 #' etc), and each row of each taxonomy table should represent the same ASV/OTU.
 #' Use of the functions bayestax2df, idtax2df, and/or taxmapper will ensure your
 #' taxonomy tables meet these requirements. Be advised that rownames of each
-#' taxonomy table are set to NULL by ensembleTax.
+#' taxonomy table are set to NULL by assign.ensembleTax.
 #'
 #' Ensemble taxonomic assignments are computed by finding the highest-frequency
 #' taxonomic assignment for each ASV across all input taxonomy tables. Several
@@ -95,7 +95,7 @@
 #' xx <- list(fake1.pr2, fake2.pr2)
 #' names(xx) <- c("fake1", "fake2")
 #' xx
-#' eTax <- ensembleTax(xx,
+#' eTax <- assign.ensembleTax(xx,
 #'            tablenames = names(xx),
 #'            ranknames = c("kingdom", "supergroup", "division","class","order",
 #'            "family","genus","species"),
@@ -104,7 +104,7 @@
 #'            assign.threshold = 0.5,
 #'            weights=rep(1,length(xx)))
 #' head(eTax)
-#' eTax <- ensembleTax(xx,
+#' eTax <- assign.ensembleTax(xx,
 #'                     tablenames = names(xx),
 #'                     ranknames = c("kingdom", "supergroup", "division",
 #'                     "class","order","family","genus","species"),
@@ -115,7 +115,7 @@
 #' head(eTax)
 #'
 #' @export
-ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supergroup", "division","class","order","family","genus","species"),
+assign.ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supergroup", "division","class","order","family","genus","species"),
                         weights=rep(1,length(x)), tiebreakz = NULL, count.na=TRUE, assign.threshold = 0) {
   names(x) <- tablenames
 
@@ -150,7 +150,7 @@ ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supe
 
   ## set up
   n.rows <- nrow(x[[1]]) # get the number of ASV's aka number of rows
-  n.cols <- ncol(x[[1]]) # get the number of columns to recreate consensus taxonomy table
+  n.cols <- ncol(x[[1]]) # get the number of columns to recreate ensemble taxonomy table
   n.dfs <- length(x) # getting the number of taxonomy tables inputted
 
   # set up empty consensus taxonomy table to add by each row
@@ -160,13 +160,13 @@ ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supe
   if (is.null(tiebreakz)) {
     tiebreaker <- NA
   } else {
-    # convert list of tiebreakers to a dataframe t
+    # convert list of tiebreakers to a dataframe
     tiebreaker <- base::data.frame(table = tiebreakz, stringsAsFactors=FALSE)
     # set priority numbers
     tiebreaker$priority <- base::as.numeric(rownames(tiebreaker))
   }
 
-  # just iterate through each row and find the consensus of each row
+  # iterate through each row and find the consensus of each row
   for (row in 1:n.rows) {
     # initialize the consensus row
     c.row <- base::data.frame(matrix(rep(NA, n.cols), ncol=n.cols, nrow = 1, dimnames=list(NULL, names(consensus.tax))))
@@ -278,4 +278,3 @@ ensembleTax <- function(x, tablenames = names(x), ranknames = c("kingdom", "supe
   df <- base::data.frame(base::lapply(df, base::as.character), stringsAsFactors=FALSE)
   return(df)
 }
-
