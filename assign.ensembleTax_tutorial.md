@@ -9,7 +9,7 @@ This vignette provides detailed examples to demonstrate the functionality of the
 
 ## The assign.ensembleTax algorithm
 
-*assign.ensembleTax*'s purpose is to synthesize taxonomic assignments made by any number of unique taxonomic assignment methods to determine an "ensemble" assignment for each ASV in a data set. *assign.ensembleTax* requires that each method's taxonomic assignments follow the same taxonomic nomenclature (naming and ranking conventions). If yours don't, use the *taxmapper* algorithm included with the ensembleTax package (vignette here: ADD LINK DYLAN).
+*assign.ensembleTax*'s purpose is to synthesize taxonomic assignments made by any number of unique taxonomic assignment methods to determine an "ensemble" assignment for each ASV in a data set. *assign.ensembleTax* requires that each method's taxonomic assignments follow the same taxonomic nomenclature (naming and ranking conventions). If yours don't, use the *taxmapper* algorithm included with the ensembleTax package (vignette here: <https://github.com/dcat4/ensembleTax/blob/master/taxmapper_tutorial.md>).
 
 By default, *assign.ensembleTax* determines the ensemble taxonomic assignment for each ASV by finding the highest-frequency taxonomic assignment across the input taxonomic assignments (presumably) determined with different methods.
 
