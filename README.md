@@ -19,6 +19,12 @@ Many taxonomic assignment algorithms have been proposed to assign taxonomy to ma
 
 ensembleTax solves this problem by providing flexible algorithms that synthesize information from multiple taxonomic assignment algorithm/reference database combinations and compute a single ensemble taxonomic assignment for each ASV/OTU in a marker gene data set.
 
+## Quick reference:
+
+This vignette gives a broad overview of the ensembleTax workflow.
+
+Vignettes for more details on the core ensembleTax algorithms are linked below: taxmapper: <https://github.com/dcat4/ensembleTax/blob/master/taxmapper_tutorial.md> assign.ensembleTax: <https://github.com/dcat4/ensembleTax/blob/master/assign.ensembleTax_tutorial.md>
+
 ## Download instructions
 
 The ensembleTax package is available on Github and CRAN. To install from Github, first install ensembleTax's dependencies from CRAN and Bioconductor (and install Bioconductor if you don't have it), then use devtools to install from Github as follows:
@@ -256,7 +262,7 @@ After pre-processing our taxonomic assignment data sets above, we see we still c
 
 Here we'll use *taxmapper* to 'translate' the idtax-silva taxonomic assignments onto the same taxonomic nomenclature as the other two tables.
 
-For more detailed examples illustrating the behavior of *taxmapper* with different input arguments, there's a vignette here: ADD LINK!!!!
+For more detailed examples illustrating the behavior of *taxmapper* with different input arguments, there's a vignette here: <https://github.com/dcat4/ensembleTax/blob/master/taxmapper_tutorial.md>
 
 Note that if you want to use your own custom synonym.file, there's a vignette showing how to do this here: <https://github.com/dcat4/ensembleTax/blob/master/how_to_add_synonyms.md>
 
@@ -368,7 +374,7 @@ head(eTax1)
 
 We see that the assignments made at the highest frequency across the 3 assignment algorithms are assigned as the ensemble taxonomic assignment.
 
-For more detailed examples illustrating the behavior of *assign.ensembleTax* with different input arguments, there's a vignette here: ADD LINK!!!!
+For more detailed examples illustrating the behavior of *assign.ensembleTax* with different input arguments, there's a vignette here: <https://github.com/dcat4/ensembleTax/blob/master/assign.ensembleTax_tutorial.md>
 
 #### Comparisons of ensemble assignments with individual methods
 
@@ -409,8 +415,6 @@ plt <- ggplot(yaboi, aes(fill = variable, x = rankz, y = value)) +
     geom_bar(stat="identity", color = "black", position=position_dodge(width=0.8)) + 
     labs(x = "Taxonomic Rank", y = "Proportion of ASVs Unassigned") + 
     scale_x_discrete(limits = colnames(xx[[1]])) +
-    # scale_y_continuous(limits = seq(-0.05,1.05,0.1), expand = c(0,0)) +
-    # coord_cartesian(ylim = c(-0.05, 1)) + 
     theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12), axis.title.x = element_text(size = 12, face="bold"),
           axis.text.y = element_text(size = 12), axis.title.y = element_text(size = 12, face="bold"),
           panel.background = element_rect(fill = "white",
@@ -430,7 +434,15 @@ print(plt)
 
 ![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
-Nice. Let's do some comparisons of the assignments between the ensembles and the individual taxonomy tables:
+For our simple 5-ASV example in this vignette, you could more or less see these patterns just by manually inspecting the data. For thousands of ASVs though, this type of analysis can be useful.
+
+A couple things to note here: in most cases, if you've mapped assignments from one database onto another, some information will likely be lost because reference databases occasionally do not contain the same taxonomic names and/or organisms. Therefore you shouldn't read too much into it if assignments made with one reference database consistently feature a higher proportion of ASVs that remain unassigned. In this case, the idtax-silva was mapped onto the pr2 nomenclature, so we don't really know whether the lower proportion of assigned ASVs is due to lower coverage of protists in silva, or due to a loss of information during mapping. We could of course map the pr2 tables onto silva and compare the information lost in both directions to give a better idea if there are systematic differences in assignments made with silva vs. pr2, but this is for another day.
+
+We can however see that the when applied to the same database, the RDP classifier classified more of our ASVs than the idtaxa classifier. This was noted in the idtaxa paper and may be due to high overclassification error rates associated with the RDP classifier. Again though, we don't want to get too much into the weeds here.
+
+Finally, we see that the ensemble is somewhere in the middle of the individual methods. This is because it has only assigned taxonomy where an assignment was supported by two assignment methods; if those were overclassification errors in the bayes-pr2 table, we've reduced the impact of those but it looks like we also had enough support to make taxonomy predictions in some places where the idtax-pr2 table was unassigned (and perhaps was too conservative?). This hints at some of the expected benefits of determining ensemble assignments, though further work is needed to validate these expectations.
+
+We'll demonstrate one more comparison you might try. Here, we're comparing taxonomic annotations for each ASV in our data set according to each independent method with each ASV's ensemble taxonomic assignment. In these comparisons, we'll designate four possible outcomes for each ASV's taxonomic assignments: the assignments predicted by the individual method can be in perfect agreement with the ensemble at all ranks; the individual method can assign taxonomy for an ASV at more or less ranks than the ensemble; or the taxonomy predicted by the individual method can disagree with the ensemble assignment at any rank. Let's do it:
 
 ``` r
 library("dplyr")
@@ -552,4 +564,12 @@ print(plt2)
 
 ![](README_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
-Anyhow, that's it, let us know on the issues page if/when you find bugs!
+And we have a few things to point out here. First, note that for each taxonomy table (bar color), the bars sum to 1. You could thus employ a stacked bar or similar, but I prefer this format; see the ggplot2 help for tweaking the plot. For interpretation's sake, this just means that each ASV's assignment comparison must fall into one of the four categories we designated.
+
+We also see that in this very small data set, we had no ASVs for which different taxonomic assignments were predicted by the individual methods. There were of course instances where one method assigned taxonomy to more or fewer ranks, but this lack of disagreement is a good thing. Rates of conflicting assignments tend to be low (&lt; 5-10%) in the larger data sets I've worked with too. This of course probably depends on the classifier and reference database employed, but is a good sign nonetheless.
+
+One last thing to note: under certain implementations of *assign.ensembleTax*, assignments predicted by one or more methods can be intentionally prioritized by the user. Therefore, it is important to keep in mind that increased disagreements between an individual method and an ensemble does not necessarily indicate that the individual method is error prone.
+
+While this small data set doesn't lend itself to many more interesting interpretations, hopefully the above comparisons help you get started in assessing the utility and optimal parameters for your ensemble taxonomic assignments.
+
+This brings us to the end of our vignette. Please see the vignettes specifically geared toward demonstrating uses for the *taxmapper* and *assign.ensembleTax* algorithms for more information, and let us know on the issues page if/when you find issues!
