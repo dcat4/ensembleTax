@@ -18,6 +18,8 @@ Imports:
     Biostrings,
     DECIPHER,
     stringr,
+    ggplot2,
+    reshape2,
     usethis
 Depends: 
     R (>= 2.10)

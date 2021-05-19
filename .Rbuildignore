@@ -19,3 +19,7 @@
 ^mit.license
 ^taxmapper_tutorial.Rmd
 ^taxmapper_tutorial.md
+^README_files$
+^README_files
+^assign.ensembleTax_tutorial.Rmd
+^assign.ensembleTax_tutorial.md
