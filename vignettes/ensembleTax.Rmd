@@ -25,11 +25,6 @@ converted to a dataframe.
 Here you can find instructions for downloading and installing the ensembleTax 
 package, and a brief demonstration of a sample ensembleTax "pipeline".
 
-Please ask questions and/or report bugs on the issue-tracker associated 
-with this repository. Contributions of R-able wrappers or implementations of
-additional taxonomic assignment algorithms and/or reference database taxonomic 
-nomenclatures are welcome. 
-
 ## The problem(s) addressed by ensembleTax
 Taxonomic assignment of marker gene sequences is a critical step of marker gene
 workflows as it imparts ecological significance and understanding to genetic 

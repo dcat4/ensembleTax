@@ -11,11 +11,11 @@ This vignette provides detailed examples to demonstrate the functionality of the
 
 *taxmapper*'s purpose is to map a collection of taxonomic assignments onto a different taxonomic nomenclature (set of naming and ranking conventions).
 
-It does this via rank-agnostic exact name matching. In other words, *taxmapper* doesn't care about the heirarchical structure of a taxonomic nomenclature, and assumes that a taxonomic name means the same thing regardless of which reference database that name is found in.
+It does this via rank-agnostic exact name matching. In other words, *taxmapper* doesn't care about the heirarchical structure of a taxonomic nomenclature, and assumes that a taxonomic name means the same thing regardless of which reference database that name is found in. There are some exceptions to this when ambiguous names are encountered; see Example 5 below for details on what constitutes an ambiguous name and how these are handled by ensembleTax.
 
 ### Examples
 
-To demonstrate the functionality of *taxmapper*, we'll create an artificial set of taxonomic assignments to mimic those you might obtain with, for example, dada2's *assignTaxonomy* function, as well as an artificial taxonomic nomenclature that mimic's those available in the ensembleTax R package.
+To demonstrate the functionality of *taxmapper*, we'll create an artificial set of ASVs and corresponding taxonomic assignments as well as an artificial taxonomic nomenclature that mimic's those available in the ensembleTax R package.
 
 So first, load the ensembleTax package, and create the artificial data sets:
 
@@ -56,7 +56,7 @@ map2me
     ##     kingdom   largegroup division      class           order           genus
     ## 1 Eukaryota Stramenopile  Clade_X Ochrophyta Bacillariophyta Pseudonitzschia
 
-So we see we have a set of 2 ASVs with taxonomic assignments, and a taxonomic nomenclature that contains 1 taxonomic entry (we're trying to make a simple example here; most reference databases have thousands of taxonomic entries).
+So we see we have a set of 2 ASVs with taxonomic assignments, and a taxonomic nomenclature that contains 1 taxonomic entry (we're trying to make a simple example here; you'll have thousands of entries in each if you're doing this with real data).
 
 Now would be a good time to review the *taxmapper* documentation to get a sense of the different parameter spaces available. Here we'll try to demonstrate what these different parameters are doing.
 
@@ -143,7 +143,7 @@ ensembleTax includes a collection of pre-compiled eukaryotic taxonomic synonyms.
 
 ``` r
 # load ensembleTax's pre-compiled synonyms:
-syn.df <- ensembleTax::synonyms_20200816
+syn.df <- ensembleTax::synonyms_v2
 # pull rows with Diatomea (there's only 1)
 diatom.synonyms <- syn.df[which(syn.df == "Diatomea", arr.ind=TRUE)[,'row'],]
 # look at it:
@@ -243,8 +243,6 @@ mapped.tt.igfo2
 
 This example illustrates that formatting is only being ignored for the taxonomic names we're mapping, and NOT for the taxonomic nomenclature we're mapping onto. This is an important limitation to keep in mind. If you find this problematic, you may consider further customization of the *tax2map2* data. We are considering more detailed manipulations of the nomenclatures supported by ensembleTax to circumvent this issue but for now we supply these exactly as they are supplied by the creators of the reference databases.
 
-Here's a few more examples to demonstrate some capabilities of
-
 #### Example 5: ambiguous "placeholder" names
 
 One last example we need to look at considers ambiguous taxonomic names that are sometimes included in reference databases.
@@ -297,7 +295,7 @@ mapped.tt.ambigtest
     ## 1            <NA>
     ## 2 Pseudonitzschia
 
-We see that despite the fact that there was an exact name match, *taxmapper* has avoided making an incorrect annotation in the mapped output. *taxmapper* does this by checking the names to be mapped for taxonomic names that BEGIN with certain words. Here's the complete list of what it checks for: "Clade", "CLADE", "clade", "Group", "GROUP", "group", "Class", "CLASS", "class", "Subgroup", "SubGroup", "SUBGROUP", "subgroup", "Subclade", "SubClade", "SUBCLADE", "subclade", "Subclass", "SubClass", "SUBCLASS", "subclass", "incertae sedis", "INCERTAE SEDIS", "Incertae sedis", "Incertae Sedis", "incertae-sedis", "INCERTAE-SEDIS", "Incertae-sedis", "Incertae-Sedis", "incertae\_sedis", "INCERTAE\_-SEDIS", "Incertae\_sedis", "Incertae\_Sedis", "incertaesedis", "INCERTAESEDIS", "Incertaesedis", "IncertaeSedis", "unclassified", "UNCLASSIFIED", "Unclassified", "Novel", "novel", "NOVEL", "sp", "sp.", "spp", "spp.", "lineage", "Lineage", "LINEAGE"
+We see that despite the fact that there was an exact name match, *taxmapper* has avoided making an incorrect annotation in the mapped output. *taxmapper* does this by checking the names to be mapped for taxonomic names that BEGIN with certain words. Here's the complete list of what it checks for: "Clade", "CLADE", "clade", "Group", "GROUP", "group", "Class", "CLASS", "class", "Subgroup", "SubGroup", "SUBGROUP", "subgroup", "Subclade", "SubClade", "SUBCLADE", "subclade", "Subclass", "SubClass", "SUBCLASS", "subclass", "Sub group", "Sub Group", "SUB GROUP", "sub group", "Sub clade", "Sub Clade", "SUB CLADE", "sub clade", "Sub class", "Sub Class", "SUB CLASS", "sub class", "Sub\_group", "Sub\_Group", "SUB\_GROUP", "sub\_group", "Sub\_clade", "Sub\_Clade", "SUB\_CLADE", "sub\_clade", "Sub\_class", "Sub\_Class", "SUB\_CLASS", "sub\_class", "Sub-group", "Sub-Group", "SUB-GROUP", "sub-group", "Sub-clade", "Sub-Clade", "SUB-CLADE", "sub-clade", "Sub-class", "Sub-Class", "SUB-CLASS", "sub-class", "incertae sedis", "INCERTAE SEDIS", "Incertae sedis", "Incertae Sedis", "incertae-sedis", "INCERTAE-SEDIS", "Incertae-sedis", "Incertae-Sedis", "incertae\_sedis", "INCERTAE\_-SEDIS", "Incertae\_sedis", "Incertae\_Sedis", "incertaesedis", "INCERTAESEDIS", "Incertaesedis", "IncertaeSedis", "unclassified", "UNCLASSIFIED", "Unclassified", "Novel", "novel", "NOVEL", "sp", "sp.", "spp", "spp.", "lineage", "Lineage", "LINEAGE"
 
 So, what does *taxmapper* do when it encounters an ambiguous name like "Clade\_X"? It doesn't just discard the name. Instead, it finds the lowest rank with a non-ambiguous taxonomic name (a name that doesn't begin with a word in the list above), and appends that non-ambiguous name to the ambiguous name, separated by a "-". In our example above, this means *taxmapper* was searching for "Bacteria-Clade\_X" rather than just "Clade\_X", removing the ambiguity in taxonomic identity.
 
