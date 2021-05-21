@@ -176,10 +176,10 @@ mapped.tt.stmlin</code></pre></div>
                        <span class="dt">streamline =</span> <span class="ot">FALSE</span>)
 mapped.tt.no.stmlin</code></pre></div>
 <pre><code>## [[1]]
-##     kingdom   supergroup   division    class            genus tax2map2_kingdom tax2map2_largegroup tax2map2_division tax2map2_class tax2map2_order
-## 1 Eukaryota Stramenopile Ochrophyta Diatomea Pseudo-nitzschia        Eukaryota        Stramenopile           Clade_X     Ochrophyta             NA
-##   tax2map2_genus
-## 1             NA
+##     kingdom   supergroup   division    class            genus tax2map2_kingdom
+## 1 Eukaryota Stramenopile Ochrophyta Diatomea Pseudo-nitzschia        Eukaryota
+##   tax2map2_largegroup tax2map2_division tax2map2_class tax2map2_order tax2map2_genus
+## 1        Stramenopile           Clade_X     Ochrophyta             NA             NA
 ## 
 ## [[2]]
 ## [1] &quot;Pseudo-nitzschia&quot; &quot;Diatomea&quot;         &quot;Bacteria&quot;        
@@ -214,13 +214,15 @@ mapped.tt.exc</code></pre></div>
 <p>If you'd like to use a custom compilation of taxonomic synonyms, please see this vignette: <a href="https://github.com/dcat4/ensembleTax/blob/master/how_to_add_synonyms.md" class="uri">https://github.com/dcat4/ensembleTax/blob/master/how_to_add_synonyms.md</a>.</p>
 <p>ensembleTax includes a collection of pre-compiled eukaryotic taxonomic synonyms. Let's have a look at whether <em>Diatomea</em> and <em>Bacillariophyta</em> are included in this pre-compiled data set:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load ensembleTax's pre-compiled synonyms:</span>
-syn.df &lt;-<span class="st"> </span>ensembleTax::synonyms_20200816
+syn.df &lt;-<span class="st"> </span>ensembleTax::synonyms_v2
 <span class="co"># pull rows with Diatomea (there's only 1)</span>
 diatom.synonyms &lt;-<span class="st"> </span>syn.df[<span class="kw">which</span>(syn.df ==<span class="st"> &quot;Diatomea&quot;</span>, <span class="dt">arr.ind=</span><span class="ot">TRUE</span>)[,<span class="st">'row'</span>],]
 <span class="co"># look at it:</span>
 diatom.synonyms</code></pre></div>
-<pre><code>##      Name_1          Name_2 Name_3 Name_4 Name_5 Name_6 Name_7      References Notes.References X X.1
-## 10 Diatomea Bacillariophyta   &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt; Adl et al. 2012</code></pre>
+<pre><code>##      Name_1          Name_2 Name_3 Name_4 Name_5 Name_6 Name_7      References Notes.References
+## 10 Diatomea Bacillariophyta   &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt; Adl et al. 2012                 
+##    X X.1
+## 10</code></pre>
 <p>They are. You can follow a similar procedure to check for synonyms for your favorite taxonomic name, or enhance our pre-compiled synonym collection by saving the above syn.df dataframe to a csv and adding in your own collections of synonyms.</p>
 <p>Moving on, if we tell <em>taxmapper</em> to consult the pre-compiled taxonomic synonyms included with the ensembleTax package, we should be able to get more refined mapped taxonomic assignments in this example. We'll do this here with the <em>synonym.file = &quot;default&quot;</em> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mapped.tt.syn &lt;-<span class="st"> </span><span class="kw">taxmapper</span>(<span class="dt">tt =</span> fake.taxtab,
