@@ -69,7 +69,7 @@
 #'   \item{X}{Additional references for some synonyms}
 #'   \item{X.1}{Additional references for some synonyms}
 #' }
-"synonyms_20200816"
+"synonyms_v2"
 
 #' Example rubric with ASV-identifying data
 #'
