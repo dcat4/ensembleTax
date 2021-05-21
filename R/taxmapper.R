@@ -294,7 +294,7 @@ taxmapper <- function(tt,
     synonyms <- utils::read.csv(synonym.file, stringsAsFactors = FALSE)
     synonyms <- synonyms[, colnames(synonyms)[startsWith(colnames(synonyms), "Name")]]
   } else if (synonym.file == "default") {
-    synonyms <- ensembleTax::synonyms_20200816
+    synonyms <- ensembleTax::synonyms_v2
     synonyms <- synonyms[, colnames(synonyms)[startsWith(colnames(synonyms), "Name")]]
   }
 
