@@ -14,8 +14,8 @@
 #'
 #' @param tt The taxonomy table output by DADA2's assignTaxonomy function.
 #' @param db The database you ran assignTaxonomy against. Either "pr2", "silva",
-#' "rdp", or "gg" are supported. You may set to NULL and include a character
-#' vector of rank (column) names for other databases.
+#' "rdp", "gg", or "UNITE" are supported. You may set to NULL and include a
+#' character vector of rank (column) names for other databases.
 #' @param ranks NULL, or a character vector of column names if db is set to NULL
 #' @param boot The bootstrap threshold below which taxonomic assignments should
 #' be set to NA. This can also be done with DADA2's assignTaxonomy but is
@@ -70,6 +70,10 @@ bayestax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0,
     colnames(taxdf) <- ranks
     colnames(confdf) <- ranks
   } else if (is.null(db)) {
+    colnames(taxdf) <- ranks
+    colnames(confdf) <- ranks
+  } else if (db == "UNITE") {
+    ranks <- c("kingdom", "phylum", "class", "order", "family", "genus", "species")
     colnames(taxdf) <- ranks
     colnames(confdf) <- ranks
   }

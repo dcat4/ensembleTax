@@ -9,11 +9,11 @@
 #' @param tt.ranks A character vector of the column names where taxonomic
 #' names are found in tt. Supply them heirarchically (e.g. kingdom --> species)
 #' @param tax2map2 The taxonomic nomenclature you would like to map onto. pr2
-#' v4.12.0, Silva SSU v138 nr, GreenGenes v13.8 clustered at 97% similarity, and
-#' the RDP train set v16 are included in the ensembleTax package. You can map to
-#' these by specifying "pr2", "Silva", "gg", or "rdp". Otherwise should be a
-#' dataframe of type character or list (no factors) with each column
-#' corresponding to a taxonomic rank.
+#' v4.14.0, Silva SSU v138 nr, GreenGenes v13.8 clustered at 97% similarity,
+#' UNITE all eukaryotes v.10.05.2021, and the RDP train set v18 are included in
+#' the ensembleTax package. You can map to these by specifying "pr2", "Silva",
+#' "gg", "UNITE", or "rdp". Otherwise should be a dataframe of type character or
+#' list (no factors) with each column corresponding to a taxonomic rank.
 #' @param exceptions A character vector of taxonomic names at the basal/root
 #' rank of tt that will be propagated onto the mapped taxonomy. ASVs assigned
 #' to these names will retain these names at their basal/root rank in the mapped
@@ -147,13 +147,15 @@ taxmapper <- function(tt,
   if (is.data.frame(tax2map2)){
     # do nothing
   } else if (tax2map2 == "pr2") {
-    tax2map2 <- ensembleTax::pr2v4.12.0
+    tax2map2 <- ensembleTax::pr2v4.14.0
   } else if (tax2map2 == "Silva") {
     tax2map2 <- ensembleTax::silva.nr.v138
   } else if (tax2map2 == "rdp") {
-    tax2map2 <- ensembleTax::rdp_train_set_16
+    tax2map2 <- ensembleTax::rdp_train_set_18
   } else if (tax2map2 == "gg") {
     tax2map2 <- ensembleTax::gg_13_8_train_set_97
+  } else if (tax2map2 == "UNITE") {
+    tax2map2 <- ensembleTax::UNITE.euk.10.05.2021
   } else {
     stop("No valid tax2map2 object supplied.")
   }

@@ -1,6 +1,6 @@
-#' All unique taxonomic assignments from the pr2 reference database v4.12.0
+#' All unique taxonomic assignments from the pr2 reference database v4.14.0
 #'
-#' @format ^ dataframe with 45352 rows and 8 columns
+#' @format ^ dataframe with 48211 rows and 8 columns
 #' \describe{
 #'   \item{kingdom}{kingdom assignments}
 #'   \item{supergroup}{supergroup assignments}
@@ -11,7 +11,7 @@
 #'   \item{genus}{genus assignments}
 #'   \item{species}{species assignments}
 #' }
-"pr2v4.12.0"
+"pr2v4.14.0"
 
 #' All unique taxonomic assignments from the Silva SSU nr database v138
 #'
@@ -28,7 +28,7 @@
 
 #' All unique taxonomic assignments from the RDP Train Set 16
 #'
-#' @format ^ dataframe with 2472 rows and 6 columns
+#' @format ^ dataframe with 3240 rows and 6 columns
 #' \describe{
 #'   \item{domain}{domain assignments}
 #'   \item{phylum}{phylum assignments}
@@ -37,7 +37,21 @@
 #'   \item{family}{family assignments}
 #'   \item{genus}{genus assignments}
 #' }
-"rdp_train_set_16"
+"rdp_train_set_18"
+
+#' All unique taxonomic assignments from the UNITE all eukaryote database
+#'
+#' @format ^ dataframe with 66383 rows and 7 columns
+#' \describe{
+#'   \item{kingdom}{kingdom assignments}
+#'   \item{phylum}{phylum assignments}
+#'   \item{class}{class assignments}
+#'   \item{order}{order assignments}
+#'   \item{family}{family assignments}
+#'   \item{genus}{genus assignments}
+#'   \item{species}{species assignments}
+#' }
+"UNITE.euk.10.05.2021"
 
 #' All unique taxonomic assignments from the GreenGenes v13.8 clusted at 97%
 #'

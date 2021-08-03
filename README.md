@@ -1,7 +1,7 @@
 The ensembleTax R package
 ================
 D Catlett
-5/15/2021
+8/3/2021
 
 # ensembleTax overview
 
@@ -57,15 +57,21 @@ Additional functions are included for pre-processing taxonomic assignments gener
 
 The outputs of the following taxonomic assignment algorithms are explicitly supported by ensembleTax:
 
-1.  RDP bayesian classifier as implemented in dada2's assignTaxonomy.
-2.  idtaxa algorithm as implemented in DECIPHER.
+1.  RDP bayesian classifier as implemented in dada2's assignTaxonomy, see: Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP. 2016. DADA2: high-resolution sample inference from Illumina amplicon data. Nature Methods 13(7):581-583. And also Wang Q, Garrity GM, Tiedje JM, Cole JR. 2007. Naïve Bayesian classifier for rapid assignment of rRNA sequences into the new bacterial taxonomy. Applied Environmental Microbiology 73(16):5261-5267.
+
+2.  idtaxa algorithm as implemented in DECIPHER, see: Murali A, Bhargava A, Wright ES. 2018. IDTAXA: a novel approach for accurate taxonomic classification of microbiome sequences. Microbiome 6(1):1-14.
 
 Supported reference databases include:
 
-1.  Silva SSU NR reference database v138 (silva).
-2.  Protistan Ribosomal Reference database v4.12.0 (pr2).
-3.  RDP train set v16
-4.  GreenGenes v13.8 clustered at 97% similarity
+1.  Silva SSU NR reference database v138, see: Quast C, Pruesse E, Yilmaz P, Gerken J, Schweer T, Yarza P, Peplies J, Glöckner FO. 2013. The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucleic Acids Research 41(D1):D590-D596. <https://www.arb-silva.de/>.
+
+2.  Protistan Ribosomal Reference database v4.14.0, see: Guillou L, Bachar D, Audic S, Bass D, Berney C, Bittner L, Boutte C, Burgaud G, De Vargas C, Decelle J+22 more. 2013. The Protist Ribosomal Reference database (PR2): a catalog of unicellular eukaryote Small Sub-Unit rRNA sequences with curated taxonomy. Nucleic Acids Research 41:D597-D604. <https://pr2-database.org/>.
+
+3.  RDP train set v18, see: Cole JR, Wang Q, Fish JA, Chai B, McGarrell DM, Sun Y, Brown CT, Porras-Alfaro A, Kuske CR, Tiedje JM. 2014. Ribosomal Database Project: data and tools for high throughput rRNA analysis. Nucleic Acids Research 42(Database issue):D633-D642. <https://zenodo.org/record/4310151#.YQmTcxNKjcM>.
+
+4.  GreenGenes v13.8 clustered at 97% similarity, see: McDonald D, Price MN, Goodrich J, Nawrocki EP, De Santis TZ, Probst A, Andersen GL, Knight R, Hugenholtz P. 2012. An improved Greengenes taxonomy with explicit ranks for ecological and evolutionary analyses of bacteria and archaea. The ISME journal 6(3):610-618. <https://zenodo.org/record/158955#.YQmN2RNKjcM>
+
+5.  UNITE eukaryotes v.10.05.2021, see: Abarenkov, Kessy; Zirk, Allan; Piirmann, Timo; Pöhönen, Raivo; Ivanov, Filipp; Nilsson, R. Henrik; Kõljalg, Urmas (2021): UNITE general FASTA release for eukaryotes 2. Version 10.05.2021. UNITE Community. <https://dx.doi.org/10.15156/BIO/1280160>.
 
 Note that other databases may still be used with ensembleTax, but they must be mapped onto the taxonomic nomenclatures employed by one of the above supported databases using *taxmapper*, or the user must extract all unique taxonomic assignments from the database and format them properly for use with *taxmapper*. A vignette that shows how to extract taxonomic assignments from a database not supported by the ensembleTax package can be found here: <https://github.com/dcat4/ensembleTax/blob/master/add_tax_dbs.md>
 

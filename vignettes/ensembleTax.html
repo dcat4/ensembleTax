@@ -168,9 +168,40 @@ for (i in <span class="dv">1</span>:<span class="kw">length</span>(rubric)) {
 <span class="kw">names</span>(rubric) &lt;-<span class="st"> </span>snam</code></pre></div>
 <p>For this vignette, instead of running the assignments we'll just load some data included with the ensembleTax package. These are outputs of dada2's assignTaxonomy implemented against pr2, and of DECIPHER's idtaxa implemented against both pr2 and silva. The rubric.sample is an example of a &quot;rubric&quot;, which ensembleTax uses to track ASV-identifying information.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ensembleTax&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;Biostrings&quot;</span>)
-
-<span class="kw">data</span>(<span class="st">&quot;idtax.pr2.sample&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;Biostrings&quot;</span>)</code></pre></div>
+<pre><code>## Loading required package: BiocGenerics</code></pre>
+<pre><code>## Warning: package 'BiocGenerics' was built under R version 4.0.5</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre><code>## 
+## Attaching package: 'BiocGenerics'</code></pre>
+<pre><code>## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ, clusterExport, clusterMap, parApply, parCapply,
+##     parLapply, parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     IQR, mad, sd, var, xtabs</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     anyDuplicated, append, as.data.frame, basename, cbind, colnames, dirname, do.call, duplicated, eval, evalq,
+##     Filter, Find, get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget, order, paste, pmax,
+##     pmax.int, pmin, pmin.int, Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply, union,
+##     unique, unsplit, which.max, which.min</code></pre>
+<pre><code>## Loading required package: S4Vectors</code></pre>
+<pre><code>## Loading required package: stats4</code></pre>
+<pre><code>## 
+## Attaching package: 'S4Vectors'</code></pre>
+<pre><code>## The following object is masked from 'package:base':
+## 
+##     expand.grid</code></pre>
+<pre><code>## Loading required package: IRanges</code></pre>
+<pre><code>## Loading required package: XVector</code></pre>
+<pre><code>## 
+## Attaching package: 'Biostrings'</code></pre>
+<pre><code>## The following object is masked from 'package:base':
+## 
+##     strsplit</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;idtax.pr2.sample&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;idtax.silva.sample&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;bayes.sample&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;rubric.sample&quot;</span>)</code></pre></div>
@@ -208,18 +239,12 @@ idtax.silva.pretty &lt;-<span class="st"> </span>idtax.silva.pretty[ , -<span cl
 bayes.pr2.pretty &lt;-<span class="st"> </span>bayes.pr2.pretty[ , -<span class="kw">which</span>(<span class="kw">names</span>(bayes.pr2.pretty) %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ASV&quot;</span>))]
 
 <span class="kw">head</span>(idtax.pr2.pretty)</code></pre></div>
-<pre><code>##       svN   kingdom    supergroup   division           class             order
-## 1 sv14136 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 sv17278 Eukaryota Stramenopiles Ochrophyta            &lt;NA&gt;              &lt;NA&gt;
-## 3 sv20747 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4  sv3579      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;
-## 5  sv4298 Eukaryota Stramenopiles       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;
-##                       family       genus species
-## 1 Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
-## 2                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 3 Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
-## 4                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 5                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;</code></pre>
+<pre><code>##       svN   kingdom    supergroup   division           class             order                     family       genus species
+## 1 sv14136 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
+## 2 sv17278 Eukaryota Stramenopiles Ochrophyta            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 3 sv20747 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
+## 4  sv3579      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 5  sv4298 Eukaryota Stramenopiles       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(idtax.silva.pretty)</code></pre></div>
 <pre><code>##       svN    domain       phylum   class order family genus
 ## 1 sv14136 Eukaryota         &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;
@@ -228,18 +253,18 @@ bayes.pr2.pretty &lt;-<span class="st"> </span>bayes.pr2.pretty[ , -<span class=
 ## 4  sv3579 Eukaryota         &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;
 ## 5  sv4298 Eukaryota       MAST-3 MAST-3B  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(bayes.pr2.pretty)</code></pre></div>
-<pre><code>##       svN   kingdom     supergroup     division           class             order
-## 1 sv14136 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 sv17278 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X
-## 3 sv20747 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4  sv3579 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X
-## 5  sv4298 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B
-##                       family       genus        species
-## 1 Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
-## 2                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
-## 3 Polar-centric-Mediophyceae Chaetoceros           &lt;NA&gt;
-## 4           Embryophyceae_XX        &lt;NA&gt;           &lt;NA&gt;
-## 5                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.</code></pre>
+<pre><code>##       svN   kingdom     supergroup     division           class             order                     family       genus
+## 1 sv14136 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae  Minidiscus
+## 2 sv17278 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X                  MOCH-2_XX  MOCH-2_XXX
+## 3 sv20747 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros
+## 4  sv3579 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X           Embryophyceae_XX        &lt;NA&gt;
+## 5  sv4298 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B                  MAST-3B_X  MAST-3B_XX
+##          species
+## 1 Minidiscus_sp.
+## 2 MOCH-2_XXX_sp.
+## 3           &lt;NA&gt;
+## 4           &lt;NA&gt;
+## 5 MAST-3B_XX_sp.</code></pre>
 <p>We see that each taxonomy table is now a dataframe sorted by the column &quot;svN&quot;.</p>
 </div>
 <div id="the-taxmapper-algorithm" class="section level4">
@@ -281,18 +306,12 @@ eTax1 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(x
 <span class="co"># show the 3 individuals again for easy viewing:</span>
 <span class="kw">lapply</span>(xx, <span class="dt">FUN =</span> head)</code></pre></div>
 <pre><code>## $`idtax-pr2`
-##       svN   kingdom    supergroup   division           class             order
-## 1 sv14136 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 sv17278 Eukaryota Stramenopiles Ochrophyta            &lt;NA&gt;              &lt;NA&gt;
-## 3 sv20747 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4  sv3579      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;
-## 5  sv4298 Eukaryota Stramenopiles       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;
-##                       family       genus species
-## 1 Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
-## 2                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 3 Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
-## 4                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 5                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+##       svN   kingdom    supergroup   division           class             order                     family       genus species
+## 1 sv14136 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
+## 2 sv17278 Eukaryota Stramenopiles Ochrophyta            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 3 sv20747 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
+## 4  sv3579      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 5  sv4298 Eukaryota Stramenopiles       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
 ## 
 ## $`idtax-silva`
 ##       svN   kingdom    supergroup   division  class   order family genus species
@@ -303,31 +322,25 @@ eTax1 &lt;-<span class="st"> </span><span class="kw">assign.ensembleTax</span>(x
 ## 5  sv4298 Eukaryota Stramenopiles   Opalozoa MAST-3 MAST-3B   &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;
 ## 
 ## $`bayes-pr2`
-##       svN   kingdom     supergroup     division           class             order
-## 1 sv14136 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 sv17278 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X
-## 3 sv20747 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4  sv3579 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X
-## 5  sv4298 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B
-##                       family       genus        species
-## 1 Polar-centric-Mediophyceae  Minidiscus Minidiscus_sp.
-## 2                  MOCH-2_XX  MOCH-2_XXX MOCH-2_XXX_sp.
-## 3 Polar-centric-Mediophyceae Chaetoceros           &lt;NA&gt;
-## 4           Embryophyceae_XX        &lt;NA&gt;           &lt;NA&gt;
-## 5                  MAST-3B_X  MAST-3B_XX MAST-3B_XX_sp.</code></pre>
+##       svN   kingdom     supergroup     division           class             order                     family       genus
+## 1 sv14136 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae  Minidiscus
+## 2 sv17278 Eukaryota  Stramenopiles   Ochrophyta          MOCH-2          MOCH-2_X                  MOCH-2_XX  MOCH-2_XXX
+## 3 sv20747 Eukaryota  Stramenopiles   Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros
+## 4  sv3579 Eukaryota Archaeplastida Streptophyta   Embryophyceae   Embryophyceae_X           Embryophyceae_XX        &lt;NA&gt;
+## 5  sv4298 Eukaryota  Stramenopiles     Opalozoa          MAST-3           MAST-3B                  MAST-3B_X  MAST-3B_XX
+##          species
+## 1 Minidiscus_sp.
+## 2 MOCH-2_XXX_sp.
+## 3           &lt;NA&gt;
+## 4           &lt;NA&gt;
+## 5 MAST-3B_XX_sp.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(eTax1)</code></pre></div>
-<pre><code>##       svN   kingdom    supergroup   division           class             order
-## 1 sv14136 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 2 sv17278 Eukaryota Stramenopiles Ochrophyta          MOCH-2              &lt;NA&gt;
-## 3 sv20747 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X
-## 4  sv3579 Eukaryota          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;
-## 5  sv4298 Eukaryota Stramenopiles   Opalozoa          MAST-3           MAST-3B
-##                       family       genus species
-## 1 Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
-## 2                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 3 Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
-## 4                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
-## 5                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;</code></pre>
+<pre><code>##       svN   kingdom    supergroup   division           class             order                     family       genus species
+## 1 sv14136 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae        &lt;NA&gt;    &lt;NA&gt;
+## 2 sv17278 Eukaryota Stramenopiles Ochrophyta          MOCH-2              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 3 sv20747 Eukaryota Stramenopiles Ochrophyta Bacillariophyta Bacillariophyta_X Polar-centric-Mediophyceae Chaetoceros    &lt;NA&gt;
+## 4  sv3579 Eukaryota          &lt;NA&gt;       &lt;NA&gt;            &lt;NA&gt;              &lt;NA&gt;                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;
+## 5  sv4298 Eukaryota Stramenopiles   Opalozoa          MAST-3           MAST-3B                       &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;</code></pre>
 <p>We see that the assignments made at the highest frequency across the 3 assignment algorithms are assigned as the ensemble taxonomic assignment.</p>
 <p>For more detailed examples illustrating the behavior of <em>assign.ensembleTax</em> with different input arguments, please consult the other vignettes included in the ensembleTax package.</p>
 </div>

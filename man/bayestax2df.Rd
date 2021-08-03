@@ -19,8 +19,8 @@ bayestax2df(
 \item{tt}{The taxonomy table output by DADA2's assignTaxonomy function.}
 
 \item{db}{The database you ran assignTaxonomy against. Either "pr2", "silva",
-"rdp", or "gg" are supported. You may set to NULL and include a character
-vector of rank (column) names for other databases.}
+"rdp", "gg", or "UNITE" are supported. You may set to NULL and include a
+character vector of rank (column) names for other databases.}
 
 \item{ranks}{NULL, or a character vector of column names if db is set to NULL}
 

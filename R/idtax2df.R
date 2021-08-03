@@ -18,7 +18,7 @@
 #'
 #' @param tt The taxonomy table output by DECIPHER's idtaxa algorithm
 #' @param db The database you ran idtaxa against. Either "pr2", "silva", "rdp",
-#' or "gg" are supported.
+#' "gg", or "UNITE" are supported.
 #' @param ranks NULL, or a character vector of column names if db is set to NULL
 #' @param boot The bootstrap threshold below which taxonomic assignments should
 #' be set to NA. This can also be done with DECIPHER's idtaxa but is included
@@ -57,7 +57,7 @@
 #' @export
 idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
                      return.conf = FALSE){
-  if (db == "pr2" || is.null(db)) {
+  if (db == "pr2" || db == "UNITE" || is.null(db)) {
     taxonomy<-c()
     conf <- c()
     notu <- length(tt)
@@ -77,6 +77,10 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
       colnames(confdf) <- ranks
     } else if (is.null(db)) {
       colnames(yydf) <- ranks
+      colnames(confdf) <- ranks
+    } else if (db == "UNITE") {
+      ranks <- c("kingdom", "phylum", "class", "order", "family", "genus", "species")
+      colnames(taxdf) <- ranks
       colnames(confdf) <- ranks
     }
 

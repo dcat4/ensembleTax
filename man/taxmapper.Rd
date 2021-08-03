@@ -24,11 +24,11 @@ factors).}
 names are found in tt. Supply them heirarchically (e.g. kingdom --> species)}
 
 \item{tax2map2}{The taxonomic nomenclature you would like to map onto. pr2
-v4.12.0, Silva SSU v138 nr, GreenGenes v13.8 clustered at 97\% similarity, and
-the RDP train set v16 are included in the ensembleTax package. You can map to
-these by specifying "pr2", "Silva", "gg", or "rdp". Otherwise should be a
-dataframe of type character or list (no factors) with each column
-corresponding to a taxonomic rank.}
+v4.14.0, Silva SSU v138 nr, GreenGenes v13.8 clustered at 97\% similarity,
+UNITE all eukaryotes v.10.05.2021, and the RDP train set v18 are included in
+the ensembleTax package. You can map to these by specifying "pr2", "Silva",
+"gg", "UNITE", or "rdp". Otherwise should be a dataframe of type character or
+list (no factors) with each column corresponding to a taxonomic rank.}
 
 \item{exceptions}{A character vector of taxonomic names at the basal/root
 rank of tt that will be propagated onto the mapped taxonomy. ASVs assigned

@@ -1,7 +1,13 @@
 NEWS
 ================
 D Catlett
-05/16/2021
+08/03/2021
+
+# ensembleTax v1.2.1
+
+1.  pr2 taxonomy updated to v4.14.0
+2.  UNITE taxonomy now available in package data for use with taxmapper
+3.  RDP taxonomy updated to v18
 
 # ensembleTax v1.1.1
 

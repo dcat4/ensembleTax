@@ -18,7 +18,7 @@ idtax2df(
 \item{tt}{The taxonomy table output by DECIPHER's idtaxa algorithm}
 
 \item{db}{The database you ran idtaxa against. Either "pr2", "silva", "rdp",
-or "gg" are supported.}
+"gg", or "UNITE" are supported.}
 
 \item{ranks}{NULL, or a character vector of column names if db is set to NULL}
 
