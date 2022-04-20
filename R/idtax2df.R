@@ -57,32 +57,36 @@
 #' @export
 idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
                      return.conf = FALSE){
-  if (db == "pr2" || db == "UNITE" || is.null(db)) {
+
+  if (db == "pr2" || is.null(db)) {
     taxonomy<-c()
     conf <- c()
     notu <- length(tt)
     for(j in 1:notu){
-      taxonomy<-append(taxonomy,tt[[j]]$taxon)
-      conf <- append(conf,tt[[j]]$confidence)
+      bob <- tt[[j]]$taxon
+      if (length(bob) < 9) {
+        # add NA's to hit 9 ranks
+        linda <- 9 - length(bob)
+        tina <- c(bob, rep(NA, times = linda))
+        taxonomy<-append(taxonomy, tina)
+        gene <- c(tt[[j]]$confidence, rep(NA, times = linda))
+        conf <- append(conf, gene)
+      } else if (length(bob) > 9) {
+        stop("why pr2?! whyyyyyy")
+      } else {
+        taxonomy<-append(taxonomy, bob)
+        conf <- append(conf,tt[[j]]$confidence)
+      }
     }
     yydf <- data.frame(matrix(unlist(taxonomy), nrow=notu, byrow=TRUE), stringsAsFactors = FALSE)
-    yydf <- yydf[,-1]
+    yydf <- yydf[,-1] # remove root
     confdf <- data.frame(matrix(unlist(conf), nrow=notu, byrow=TRUE))
     confdf <- confdf[,-1]
     yydf[confdf < boot] <- NA
 
-    if (db == "pr2") {
-      ranks <- c("kingdom", "supergroup", "division", "class", "order", "family", "genus", "species")
-      colnames(yydf) <- ranks
-      colnames(confdf) <- ranks
-    } else if (is.null(db)) {
-      colnames(yydf) <- ranks
-      colnames(confdf) <- ranks
-    } else if (db == "UNITE") {
-      ranks <- c("kingdom", "phylum", "class", "order", "family", "genus", "species")
-      colnames(taxdf) <- ranks
-      colnames(confdf) <- ranks
-    }
+    ranks <- c("kingdom", "supergroup", "division", "class", "order", "family", "genus", "species")
+    colnames(yydf) <- ranks
+    colnames(confdf) <- ranks
 
     if (!(is.null(rubric))) {
       rubdf <- data.frame(svN = names(rubric), ASV = as.character(rubric, use.names = FALSE), stringsAsFactors = FALSE)
@@ -172,6 +176,56 @@ idtax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0, rubric = NULL,
       return(list(tax, conf))
     } else if (!return.conf) {
       return(tax)
+    }
+  } else if (db == "UNITE") {
+    taxonomy<-c()
+    conf <- c()
+    notu <- length(tt)
+    for(j in 1:notu){
+      taxonomy<-append(taxonomy,tt[[j]]$taxon)
+      conf <- append(conf,tt[[j]]$confidence)
+    }
+    yydf <- data.frame(matrix(unlist(taxonomy), nrow=notu, byrow=TRUE), stringsAsFactors = FALSE)
+    yydf <- yydf[,-1]
+    confdf <- data.frame(matrix(unlist(conf), nrow=notu, byrow=TRUE))
+    confdf <- confdf[,-1]
+    yydf[confdf < boot] <- NA
+
+    if (db == "pr2") {
+      ranks <- c("kingdom", "supergroup", "division", "class", "order", "family", "genus", "species")
+      colnames(yydf) <- ranks
+      colnames(confdf) <- ranks
+    } else if (is.null(db)) {
+      colnames(yydf) <- ranks
+      colnames(confdf) <- ranks
+    } else if (db == "UNITE") {
+      ranks <- c("kingdom", "phylum", "class", "order", "family", "genus", "species")
+      colnames(taxdf) <- ranks
+      colnames(confdf) <- ranks
+    }
+
+    if (!(is.null(rubric))) {
+      rubdf <- data.frame(svN = names(rubric), ASV = as.character(rubric, use.names = FALSE), stringsAsFactors = FALSE)
+      yydf <- cbind(rubdf, yydf)
+      confdf <- cbind(rubdf, confdf)
+
+      confdf <- ensembleTax::sort_my_taxtab(confdf, ranknames = ranks)
+      yydf <- ensembleTax::sort_my_taxtab(yydf, ranknames = ranks)
+    }
+
+    rownames(yydf) <- NULL
+    rownames(confdf) <- NULL
+
+    # align formatting with taxmapper
+    yydf <- base::apply(yydf, MARGIN = 2, FUN = as.character)
+    confdf <- base::apply(confdf, MARGIN = 2, FUN = as.character)
+    yydf <- base::as.data.frame(yydf, stringsAsFactors = FALSE)
+    confdf <- base::as.data.frame(confdf, stringsAsFactors = FALSE)
+
+    if (return.conf) {
+      return(list(yydf, confdf))
+    } else if (!return.conf) {
+      return(yydf)
     }
   }
 }
