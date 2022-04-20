@@ -1,7 +1,11 @@
 NEWS
 ================
 D Catlett
-08/03/2021
+04/19/2022
+
+# ensembleTax v1.2.2
+
+1. idtax2df updated for compatibility with pr2 v4.14.0
 
 # ensembleTax v1.2.1
 
