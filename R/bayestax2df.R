@@ -61,15 +61,15 @@ bayestax2df <- function(tt, db = "pr2", ranks = NULL, boot = 0,
   confdf <- base::data.frame(conf, stringsAsFactors = FALSE)
   taxdf[confdf < boot] <- NA
 
-  if (db == "pr2") {
+  if (is.null(db)) {
+    colnames(taxdf) <- ranks
+    colnames(confdf) <- ranks
+  } else if (db == "pr2") {
     ranks <- c("kingdom", "supergroup", "division", "class", "order", "family", "genus", "species")
     colnames(taxdf) <- ranks
     colnames(confdf) <- ranks
   } else if (db == "silva" || db == "rdp" || db == "gg") {
     ranks <- c("domain", "phylum", "class", "order", "family", "genus")
-    colnames(taxdf) <- ranks
-    colnames(confdf) <- ranks
-  } else if (is.null(db)) {
     colnames(taxdf) <- ranks
     colnames(confdf) <- ranks
   } else if (db == "UNITE") {
